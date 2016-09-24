@@ -1,6 +1,7 @@
 package com.bolesky.base.sportsinfo.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -128,7 +129,53 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Android返回按钮事件
+     * 显示系统状态栏
+     */
+    protected void showStatusBar() {
+        WindowManager.LayoutParams attr = getWindow().getAttributes();
+        attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setAttributes(attr);
+        //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * 隐藏系统状态栏
+     */
+    protected void hideStatusBar() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(lp);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * Activity跳转页面
+     *
+     * @param clazz 目标Activity
+     */
+    public void skipActivity(Class clazz) {
+        Intent intent = new Intent(this, clazz);
+        intent.putExtra("fromWhere", getClass().getSimpleName());
+        startActivity(intent);
+    }
+
+    /**
+     * 带参数的Activity跳转页面
+     *
+     * @param clazz  目标Activity
+     * @param bundle 传递数据
+     */
+    public void skipActivity(Class clazz, Bundle bundle) {
+        Intent intent = new Intent(this, clazz);
+        if (null != bundle) {
+            intent.putExtras(bundle);
+        }
+        intent.putExtra("fromWhere", getClass().getSimpleName());
+        startActivity(intent);
+    }
+
+    /**
+     * Android Home按钮事件
      *
      * @param item MenuItem
      * @return boolean
