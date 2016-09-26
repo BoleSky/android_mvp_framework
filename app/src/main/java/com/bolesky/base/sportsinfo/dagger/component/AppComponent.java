@@ -2,7 +2,11 @@ package com.bolesky.base.sportsinfo.dagger.component;
 
 import android.content.Context;
 
+import com.bolesky.base.sportsinfo.api.ApiWrapper;
+import com.bolesky.base.sportsinfo.dagger.module.ApiModule;
 import com.bolesky.base.sportsinfo.dagger.module.AppModule;
+
+import javax.inject.Singleton;
 
 import dagger.Component;
 
@@ -11,7 +15,9 @@ import dagger.Component;
  * on 2016/9/24
  * E-Mail:hellocui@aliyun.com
  */
-@Component(modules = AppModule.class)
+@Singleton
+@Component(modules = {AppModule.class, ApiModule.class})
 public interface AppComponent {
     Context getContext();
+    ApiWrapper getApiWrapper();
 }

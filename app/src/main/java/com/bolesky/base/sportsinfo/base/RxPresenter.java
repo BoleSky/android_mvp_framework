@@ -9,6 +9,10 @@ import rx.subscriptions.CompositeSubscription;
  * E-Mail:hellocui@aliyun.com
  */
 
+/**
+ * 基于Rx的Presenter封装,控制订阅的生命周期
+ * @param <T>
+ */
 public class RxPresenter<T extends BaseContract.BaseView> implements BaseContract.BasePresenter<T> {
     T mView;
     CompositeSubscription compositeSubscription;
@@ -31,6 +35,10 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
         compositeSubscription.add(subscription);
     }
 
+    /**
+     * 释放Observable 持有的Subscriber引用，
+     * 防止由于不能及时被释放，造成内存泄露
+     */
     protected void unSubscribe() {
 
         if (compositeSubscription != null) {
