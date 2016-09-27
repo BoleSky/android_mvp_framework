@@ -2,6 +2,7 @@ package com.bolesky.base.sportsinfo.base;
 
 import com.bolesky.base.sportsinfo.api.Api;
 import com.bolesky.base.sportsinfo.bean.HttpExceptionBean;
+import com.bolesky.base.sportsinfo.utils.ToastUtils;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
                 if (e instanceof Api.APIException) {
                     Api.APIException exception = (Api.APIException) e;
                     if (mView != null) {
-//                        ToastUtils.showShort(exception.message);
+                        ToastUtils.showShort(exception.message);
                     }
                 } else if (e instanceof HttpException) {
                     ResponseBody body = ((HttpException) e).response().errorBody();
@@ -71,7 +72,7 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
                         Gson gson = new Gson();
                         HttpExceptionBean mHttpExceptionBean = gson.fromJson(json, HttpExceptionBean.class);
                         if (mHttpExceptionBean != null && mHttpExceptionBean.getMessage() != null) {
-//                                ToastUtils.showShort(mHttpExceptionBean.getMessage());
+                                ToastUtils.showShort(mHttpExceptionBean.getMessage());
                             callBack.onError(mHttpExceptionBean);
                         }
                     } catch (IOException IOe) {
