@@ -6,7 +6,7 @@ package com.bolesky.base.sportsinfo.bean;
  * E-Mail:hellocui@aliyun.com
  */
 
-public class HttpException {
+public class HttpExceptionBean {
 
     private String code;
     private String message;

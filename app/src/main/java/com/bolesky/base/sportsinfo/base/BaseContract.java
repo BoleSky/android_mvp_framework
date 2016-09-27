@@ -13,6 +13,9 @@ public interface BaseContract {
 
         void complete();
 
+        void hideLoading();
+
+        void showLoading();
     }
 
     interface BasePresenter<T> {

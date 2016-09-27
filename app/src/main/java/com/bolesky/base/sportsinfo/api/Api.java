@@ -96,7 +96,7 @@ public class Api {
     }
 
     /**
-     * 对网络接口返回的Response进行分割操作 对于jasn 解析错误以及返回的 响应实体为空的情况
+     * 对网络接口返回的Response进行分割操作 对于json 解析错误以及返回的 响应实体为空的情况
      * @param response
      * @return
      */

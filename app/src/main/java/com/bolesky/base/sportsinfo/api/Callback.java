@@ -1,6 +1,6 @@
 package com.bolesky.base.sportsinfo.api;
 
-import com.bolesky.base.sportsinfo.bean.HttpException;
+import com.bolesky.base.sportsinfo.bean.HttpExceptionBean;
 
 /**
  * Created by xiaoyong.cui
@@ -10,6 +10,8 @@ import com.bolesky.base.sportsinfo.bean.HttpException;
 
 public interface CallBack<T> {
     void onCompleted();
-    void onError(HttpException mHttpExceptionBean);
+
+    void onError(HttpExceptionBean httpExceptionBeanBean);
+
     void onNext(T t);
 }
