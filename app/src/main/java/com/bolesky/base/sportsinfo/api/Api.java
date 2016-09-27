@@ -29,8 +29,8 @@ import rx.schedulers.Schedulers;
 public class Api {
     private static final String BASE_URL="api.baidu.com";
     // 消息头
-    private static final String HEADER_Client_Type = "Client-Type";
-    private static final String FROM_ANDROID = "ayb-android";
+    public static final String HEADER_Client_Type = "Client-Type";
+    public static final String FROM_ANDROID = "ayb-android";
     private static ApiService service;
     private static Retrofit retrofit;
 
@@ -40,19 +40,19 @@ public class Api {
         }
         return service;
     }
-    /**
-     * 拦截器  给所有的请求添加消息头
-     */
-    private static Interceptor mInterceptor = new Interceptor(){
-        @Override
-        public okhttp3.Response intercept(Chain chain) throws IOException {
-            Request request = chain.request()
-                    .newBuilder()
-                    .addHeader(HEADER_Client_Type, FROM_ANDROID)
-                    .build();
-            return chain.proceed(request);
-        }
-    };
+//    /**
+//     * 拦截器  给所有的请求添加消息头
+//     */
+//    private static Interceptor mInterceptor = new Interceptor(){
+//        @Override
+//        public okhttp3.Response intercept(Chain chain) throws IOException {
+//            Request request = chain.request()
+//                    .newBuilder()
+//                    .addHeader(HEADER_Client_Type, FROM_ANDROID)
+//                    .build();
+//            return chain.proceed(request);
+//        }
+//    };
     private static Retrofit getRetrofit() {
         if (retrofit == null) {
             // log拦截器  打印所有的log
@@ -60,12 +60,12 @@ public class Api {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             //设置 请求的缓存
             File cacheFile = new File(SportsApplication.getInstance().getCacheDir(), "cache");
-            Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb
+            Cache cache = new Cache(cacheFile, 1024 * 1024 * 250); //250Mb
 
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(10, TimeUnit.SECONDS)
                     .addInterceptor(interceptor)
-                    .addInterceptor(mInterceptor)
+                    .addInterceptor(CacheInterceptor.getInterceptorCache())
                     .cache(cache)
                     .build();
 
