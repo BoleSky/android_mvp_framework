@@ -50,6 +50,15 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
      */
     protected <E> Subscriber getSubscriber(final CallBackImp callBack) {
         return new Subscriber<E>() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (mView != null) {
+                    mView.showLoading();
+                }
+            }
+
             @Override
             public void onCompleted() {
                 if (mView != null) {
@@ -72,7 +81,7 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
                         Gson gson = new Gson();
                         HttpExceptionBean mHttpExceptionBean = gson.fromJson(json, HttpExceptionBean.class);
                         if (mHttpExceptionBean != null && mHttpExceptionBean.getMessage() != null) {
-                                ToastUtils.showShort(mHttpExceptionBean.getMessage());
+                            ToastUtils.showShort(mHttpExceptionBean.getMessage());
                             callBack.onError(mHttpExceptionBean);
                         }
                     } catch (IOException IOe) {
