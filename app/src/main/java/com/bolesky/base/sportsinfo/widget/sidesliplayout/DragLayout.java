@@ -1,9 +1,6 @@
 package com.bolesky.base.sportsinfo.widget.sidesliplayout;
 
 
-
-
-
 //添加测试编译注释
 
 import android.content.Context;
@@ -15,11 +12,16 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bolesky.base.sportsinfo.R;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
@@ -82,6 +84,7 @@ public class DragLayout extends FrameLayout {
         public boolean tryCaptureView(View child, int pointerId) {
             return true;
         }
+
         /**
          * 设置水平方向滑动的最远距离
          * @param child Child view to check  屏幕宽度
@@ -124,7 +127,7 @@ public class DragLayout extends FrameLayout {
          */
         @Override
         public void onViewPositionChanged(View changedView, int left, int top,
-                int dx, int dy) {
+                                          int dx, int dy) {
             if (changedView == vgMain) {
                 mainLeft = left;
             } else {
@@ -175,12 +178,15 @@ public class DragLayout extends FrameLayout {
      */
     public interface DragListener {
         //界面打开
-         void onOpen();
+        void onOpen();
+
         //界面关闭
-         void onClose();
+        void onClose();
+
         //界面滑动过程中
-         void onDrag(float percent);
+        void onDrag(float percent);
     }
+
     public void setDragListener(DragListener dragListener) {
         this.dragListener = dragListener;
     }
@@ -226,6 +232,7 @@ public class DragLayout extends FrameLayout {
 
     /**
      * 调用进行left和main 视图进行位置布局
+     *
      * @param changed
      * @param left
      * @param top
@@ -240,6 +247,7 @@ public class DragLayout extends FrameLayout {
 
     /**
      * 拦截触摸事件
+     *
      * @param ev
      * @return
      */
@@ -250,6 +258,7 @@ public class DragLayout extends FrameLayout {
 
     /**
      * 将拦截的到事件给ViewDragHelper进行处理
+     *
      * @param e
      * @return
      */
@@ -265,6 +274,7 @@ public class DragLayout extends FrameLayout {
 
     /**
      * 进行处理拖拽事件
+     *
      * @param mainLeft
      */
     private void dispatchDragEvent(int mainLeft) {
@@ -286,18 +296,19 @@ public class DragLayout extends FrameLayout {
 
     /**
      * 根据滑动的距离的比例,进行平移动画
+     *
      * @param percent
      */
     private void animateView(float percent) {
         float f1 = 1 - percent * 0.5f;
-
         ViewHelper.setTranslationX(vgLeft, -vgLeft.getWidth() / 2.5f + vgLeft.getWidth() / 2.5f * percent);
         if (IS_SHOW_SHADOW) {
             //阴影效果视图大小进行缩放
-            ViewHelper.setScaleX(ivShadow, f1 * 1.2f * (1 - percent * 0.10f));
-            ViewHelper.setScaleY(ivShadow, f1 * 1.85f * (1 - percent * 0.10f));
+            ViewHelper.setScaleX(ivShadow, f1 * 1.5f * (1 - percent * 0.10f));
+            ViewHelper.setScaleY(ivShadow, f1 * 2.05f * (1 - percent * 0.10f));
         }
     }
+
     /**
      * 有加速度,当我们停止滑动的时候，该不会立即停止动画效果
      */
@@ -317,6 +328,7 @@ public class DragLayout extends FrameLayout {
 
     /**
      * 页面状态设置
+     *
      * @return
      */
     public Status getStatus() {
