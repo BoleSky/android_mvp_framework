@@ -1,12 +1,12 @@
-<com.bolesky.base.sportsinfo.widget.sidesliplayout.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dl"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+<com.bolesky.base.widget.sidesliplayout.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:id="@+id/dl"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@android:color/transparent">
     <!--下层 左边的布局-->
     <include layout="@layout/left_main_view_layout" />
     <!--上层 右边的主布局-->
-    <com.bolesky.base.sportsinfo.widget.sidesliplayout.SideSlipLayout
+    <com.bolesky.base.widget.sidesliplayout.SideSlipLayout
         android:id="@+id/sideSlipLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,5 +25,5 @@
 
             </FrameLayout>
         </LinearLayout>
-    </com.bolesky.base.sportsinfo.widget.sidesliplayout.SideSlipLayout>
-</com.bolesky.base.sportsinfo.widget.sidesliplayout.DragLayout>
+    </com.bolesky.base.widget.sidesliplayout.SideSlipLayout>
+</com.bolesky.base.widget.sidesliplayout.DragLayout>
