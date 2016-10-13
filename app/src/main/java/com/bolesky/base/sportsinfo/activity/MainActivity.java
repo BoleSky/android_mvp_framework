@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
-        toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
+        toolbar.setNavigationIcon(R.drawable.ic_drawer_home);
     }
 
     @Override

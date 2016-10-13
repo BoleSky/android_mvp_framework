@@ -76,7 +76,7 @@ public abstract class RefreshViewHolder {
     /**
      * 正在加载更多时的文本
      */
-    protected String mLodingMoreText = "加载中...";
+    protected String mLoadingMoreText = "加载中...";
     /**
      * 是否开启加载更多功能
      */
@@ -117,7 +117,7 @@ public abstract class RefreshViewHolder {
      * @param loadingMoreText
      */
     public void setLoadingMoreText(String loadingMoreText) {
-        mLodingMoreText = loadingMoreText;
+        mLoadingMoreText = loadingMoreText;
     }
 
     /**
@@ -195,7 +195,7 @@ public abstract class RefreshViewHolder {
             mFooterStatusTv = (TextView) mLoadMoreFooterView.findViewById(R.id.tv_normal_refresh_footer_status);
             mFooterChrysanthemumIv = (ImageView) mLoadMoreFooterView.findViewById(R.id.iv_normal_refresh_footer_chrysanthemum);
             mFooterChrysanthemumAd = (AnimationDrawable) mFooterChrysanthemumIv.getDrawable();
-            mFooterStatusTv.setText(mLodingMoreText);
+            mFooterStatusTv.setText(mLoadingMoreText);
         }
         return mLoadMoreFooterView;
     }

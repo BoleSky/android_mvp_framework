@@ -62,10 +62,6 @@ public class RefreshLayout extends LinearLayout {
      */
     private boolean mIsCustomHeaderViewScrollable = false;
     /**
-     * 下拉刷新控件的高度
-     */
-    private int mRefreshHeaderViewHeight;
-    /**
      * 当前刷新状态
      */
     private RefreshStatus mCurrentRefreshStatus = RefreshStatus.IDLE;
@@ -73,10 +69,6 @@ public class RefreshLayout extends LinearLayout {
      * 上拉加载更多控件
      */
     private View mLoadMoreFooterView;
-    /**
-     * 上拉加载更多控件的高度
-     */
-    private int mLoadMoreFooterViewHeight;
     /**
      * 下拉刷新和上拉加载更多代理
      */
@@ -103,7 +95,6 @@ public class RefreshLayout extends LinearLayout {
     private ScrollView mScrollView;
     private RecyclerView mRecyclerView;
     private View mNormalView;
-    private View mContentView;
 
     private float mInterceptTouchDownX = -1;
     private float mInterceptTouchDownY = -1;
@@ -166,15 +157,15 @@ public class RefreshLayout extends LinearLayout {
             throw new RuntimeException(RefreshLayout.class.getSimpleName() + getContext().getString(R.string.refreshlayout_exception));
         }
 
-        mContentView = getChildAt(1);
-        if (mContentView instanceof AbsListView) {
-            mAbsListView = (AbsListView) mContentView;
-        } else if (mContentView instanceof RecyclerView) {
-            mRecyclerView = (RecyclerView) mContentView;
-        } else if (mContentView instanceof ScrollView) {
-            mScrollView = (ScrollView) mContentView;
+        View contentView = getChildAt(1);
+        if (contentView instanceof AbsListView) {
+            mAbsListView = (AbsListView) contentView;
+        } else if (contentView instanceof RecyclerView) {
+            mRecyclerView = (RecyclerView) contentView;
+        } else if (contentView instanceof ScrollView) {
+            mScrollView = (ScrollView) contentView;
         } else {
-            mNormalView = mContentView;
+            mNormalView = contentView;
             // 设置为可点击，否则在空白区域无法拖动
             mNormalView.setClickable(true);
         }
@@ -210,9 +201,10 @@ public class RefreshLayout extends LinearLayout {
         if (mRefreshHeaderView != null) {
             mRefreshHeaderView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
-            mRefreshHeaderViewHeight = mRefreshViewHolder.getRefreshHeaderViewHeight();
-            mMinWholeHeaderViewPaddingTop = -mRefreshHeaderViewHeight;
-            mMaxWholeHeaderViewPaddingTop = (int) (mRefreshHeaderViewHeight * mRefreshViewHolder.getSpringDistanceScale());
+            //下拉刷新控件的高度
+            int refreshHeaderViewHeight = mRefreshViewHolder.getRefreshHeaderViewHeight();
+            mMinWholeHeaderViewPaddingTop = -refreshHeaderViewHeight;
+            mMaxWholeHeaderViewPaddingTop = (int) (refreshHeaderViewHeight * mRefreshViewHolder.getSpringDistanceScale());
 
             mWholeHeaderView.setPadding(0, mMinWholeHeaderViewPaddingTop, 0, 0);
             mWholeHeaderView.addView(mRefreshHeaderView, 0);
@@ -248,7 +240,8 @@ public class RefreshLayout extends LinearLayout {
         if (mLoadMoreFooterView != null) {
             // 测量上拉加载更多控件的高度
             mLoadMoreFooterView.measure(0, 0);
-            mLoadMoreFooterViewHeight = mLoadMoreFooterView.getMeasuredHeight();
+            //上拉加载更多控件的高度
+            int loadMoreFooterViewHeight = mLoadMoreFooterView.getMeasuredHeight();
             mLoadMoreFooterView.setVisibility(GONE);
         }
     }
