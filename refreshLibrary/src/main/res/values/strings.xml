@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stickynavLayout_exception">必须有且只有三个子控件</string>
+    <string name="refreshlayout_exception">必须有且只有一个子控件</string>
+</resources>
