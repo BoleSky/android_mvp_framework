@@ -17,6 +17,10 @@ import javax.inject.Inject;
 import butterknife.Bind;
 
 public class MainActivity extends BaseActivity {
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
+
+    }
 
     @Inject
     ApiWrapper apiWrapper;

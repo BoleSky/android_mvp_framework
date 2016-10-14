@@ -52,7 +52,12 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 对各种控件进行设置、适配、填充数据
      */
     public abstract void configViews();
-
+    /**
+     * 处理业务逻辑，状态恢复等操作
+     *
+     * @param savedInstanceState
+     */
+    protected abstract void processLogic(Bundle savedInstanceState);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         initDatas();
         configViews();
+        processLogic(savedInstanceState);
     }
 
     @Override
