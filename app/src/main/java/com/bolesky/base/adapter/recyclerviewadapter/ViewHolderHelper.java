@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bolesky.base.adapter;
+package com.bolesky.base.adapter.recyclerviewadapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -34,19 +34,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/5/26 17:06
  * 描述:为AdapterView和RecyclerView的item设置常见属性（链式编程）
  */
-public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongClickListener, CompoundButton.OnCheckedChangeListener {
+public class ViewHolderHelper implements View.OnClickListener, View.OnLongClickListener, CompoundButton.OnCheckedChangeListener {
     protected final SparseArray<View> mViews;
-    protected BGAOnItemChildClickListener mOnItemChildClickListener;
-    protected BGAOnItemChildLongClickListener mOnItemChildLongClickListener;
-    protected BGAOnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
+    protected OnItemChildClickListener mOnItemChildClickListener;
+    protected OnItemChildLongClickListener mOnItemChildLongClickListener;
+    protected OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
     protected View mConvertView;
     protected Context mContext;
     protected int mPosition;
-    protected BGARecyclerViewHolder mRecyclerViewHolder;
+    protected RecyclerViewHolder mRecyclerViewHolder;
     protected RecyclerView mRecyclerView;
 
     protected ViewGroup mAdapterView;
@@ -55,25 +53,25 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      */
     protected Object mObj;
 
-    public BGAViewHolderHelper(ViewGroup adapterView, View convertView) {
+    public ViewHolderHelper(ViewGroup adapterView, View convertView) {
         mViews = new SparseArray<>();
         mAdapterView = adapterView;
         mConvertView = convertView;
         mContext = convertView.getContext();
     }
 
-    public BGAViewHolderHelper(RecyclerView recyclerView, View convertView) {
+    public ViewHolderHelper(RecyclerView recyclerView, View convertView) {
         mViews = new SparseArray<>();
         mRecyclerView = recyclerView;
         mConvertView = convertView;
         mContext = convertView.getContext();
     }
 
-    public void setRecyclerViewHolder(BGARecyclerViewHolder recyclerViewHolder) {
+    public void setRecyclerViewHolder(RecyclerViewHolder recyclerViewHolder) {
         mRecyclerViewHolder = recyclerViewHolder;
     }
 
-    public BGARecyclerViewHolder getRecyclerViewHolder() {
+    public RecyclerViewHolder getRecyclerViewHolder() {
         return mRecyclerViewHolder;
     }
 
@@ -93,7 +91,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      *
      * @param onItemChildClickListener
      */
-    public void setOnItemChildClickListener(BGAOnItemChildClickListener onItemChildClickListener) {
+    public void setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
         mOnItemChildClickListener = onItemChildClickListener;
     }
 
@@ -111,7 +109,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      *
      * @param onItemChildLongClickListener
      */
-    public void setOnItemChildLongClickListener(BGAOnItemChildLongClickListener onItemChildLongClickListener) {
+    public void setOnItemChildLongClickListener(OnItemChildLongClickListener onItemChildLongClickListener) {
         mOnItemChildLongClickListener = onItemChildLongClickListener;
     }
 
@@ -129,7 +127,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      *
      * @param onItemChildCheckedChangeListener
      */
-    public void setOnItemChildCheckedChangeListener(BGAOnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
+    public void setOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
         mOnItemChildCheckedChangeListener = onItemChildCheckedChangeListener;
     }
 
@@ -237,7 +235,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param text
      * @return
      */
-    public BGAViewHolderHelper setText(@IdRes int viewId, CharSequence text) {
+    public ViewHolderHelper setText(@IdRes int viewId, CharSequence text) {
         TextView view = getView(viewId);
         view.setText(text);
         return this;
@@ -250,7 +248,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param stringResId 字符串资源id
      * @return
      */
-    public BGAViewHolderHelper setText(@IdRes int viewId, @StringRes int stringResId) {
+    public ViewHolderHelper setText(@IdRes int viewId, @StringRes int stringResId) {
         TextView view = getView(viewId);
         view.setText(stringResId);
         return this;
@@ -263,7 +261,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param source html文本
      * @return
      */
-    public BGAViewHolderHelper setHtml(@IdRes int viewId, String source) {
+    public ViewHolderHelper setHtml(@IdRes int viewId, String source) {
         TextView view = getView(viewId);
         view.setText(Html.fromHtml(source));
         return this;
@@ -276,37 +274,37 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param checked
      * @return
      */
-    public BGAViewHolderHelper setChecked(@IdRes int viewId, boolean checked) {
+    public ViewHolderHelper setChecked(@IdRes int viewId, boolean checked) {
         Checkable view = getView(viewId);
         view.setChecked(checked);
         return this;
     }
 
-    public BGAViewHolderHelper setTag(@IdRes int viewId, Object tag) {
+    public ViewHolderHelper setTag(@IdRes int viewId, Object tag) {
         View view = getView(viewId);
         view.setTag(tag);
         return this;
     }
 
-    public BGAViewHolderHelper setTag(@IdRes int viewId, int key, Object tag) {
+    public ViewHolderHelper setTag(@IdRes int viewId, int key, Object tag) {
         View view = getView(viewId);
         view.setTag(key, tag);
         return this;
     }
 
-    public BGAViewHolderHelper setVisibility(@IdRes int viewId, int visibility) {
+    public ViewHolderHelper setVisibility(@IdRes int viewId, int visibility) {
         View view = getView(viewId);
         view.setVisibility(visibility);
         return this;
     }
 
-    public BGAViewHolderHelper setImageBitmap(@IdRes int viewId, Bitmap bitmap) {
+    public ViewHolderHelper setImageBitmap(@IdRes int viewId, Bitmap bitmap) {
         ImageView view = getView(viewId);
         view.setImageBitmap(bitmap);
         return this;
     }
 
-    public BGAViewHolderHelper setImageDrawable(@IdRes int viewId, Drawable drawable) {
+    public ViewHolderHelper setImageDrawable(@IdRes int viewId, Drawable drawable) {
         ImageView view = getView(viewId);
         view.setImageDrawable(drawable);
         return this;
@@ -317,7 +315,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param textColorResId 颜色资源id
      * @return
      */
-    public BGAViewHolderHelper setTextColorRes(@IdRes int viewId, @ColorRes int textColorResId) {
+    public ViewHolderHelper setTextColorRes(@IdRes int viewId, @ColorRes int textColorResId) {
         TextView view = getView(viewId);
         view.setTextColor(mContext.getResources().getColor(textColorResId));
         return this;
@@ -328,7 +326,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param textColor 颜色值
      * @return
      */
-    public BGAViewHolderHelper setTextColor(@IdRes int viewId, int textColor) {
+    public ViewHolderHelper setTextColor(@IdRes int viewId, int textColor) {
         TextView view = getView(viewId);
         view.setTextColor(textColor);
         return this;
@@ -339,7 +337,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param backgroundResId 背景资源id
      * @return
      */
-    public BGAViewHolderHelper setBackgroundRes(@IdRes int viewId, int backgroundResId) {
+    public ViewHolderHelper setBackgroundRes(@IdRes int viewId, int backgroundResId) {
         View view = getView(viewId);
         view.setBackgroundResource(backgroundResId);
         return this;
@@ -350,7 +348,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param color  颜色值
      * @return
      */
-    public BGAViewHolderHelper setBackgroundColor(@IdRes int viewId, int color) {
+    public ViewHolderHelper setBackgroundColor(@IdRes int viewId, int color) {
         View view = getView(viewId);
         view.setBackgroundColor(color);
         return this;
@@ -361,7 +359,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param colorResId 颜色值资源id
      * @return
      */
-    public BGAViewHolderHelper setBackgroundColorRes(@IdRes int viewId, @ColorRes int colorResId) {
+    public ViewHolderHelper setBackgroundColorRes(@IdRes int viewId, @ColorRes int colorResId) {
         View view = getView(viewId);
         view.setBackgroundColor(mContext.getResources().getColor(colorResId));
         return this;
@@ -372,7 +370,7 @@ public class BGAViewHolderHelper implements View.OnClickListener, View.OnLongCli
      * @param imageResId 图像资源id
      * @return
      */
-    public BGAViewHolderHelper setImageResource(@IdRes int viewId, @DrawableRes int imageResId) {
+    public ViewHolderHelper setImageResource(@IdRes int viewId, @DrawableRes int imageResId) {
         ImageView view = getView(viewId);
         view.setImageResource(imageResId);
         return this;

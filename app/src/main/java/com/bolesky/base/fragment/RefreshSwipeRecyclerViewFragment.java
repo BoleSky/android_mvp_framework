@@ -7,26 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bolesky.base.R;
-import com.bolesky.base.adapter.BGAOnItemChildClickListener;
-import com.bolesky.base.adapter.BGAOnItemChildLongClickListener;
-import com.bolesky.base.adapter.BGAOnRVItemClickListener;
-import com.bolesky.base.adapter.BGAOnRVItemLongClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnItemChildClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnItemChildLongClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnRVItemClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnRVItemLongClickListener;
 import com.bolesky.base.adapter.SwipeRecyclerViewAdapter;
 import com.bolesky.base.base.BaseFragment;
-import com.bolesky.base.widget.Divider;
+import com.bolesky.base.adapter.recyclerviewadapter.Divider;
 
-import java.util.List;
 import cn.bole.refreshlayout.RefreshLayout;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
  * 创建时间:15/5/22 10:06
  * 描述:
  */
-public class RefreshSwipeRecyclerViewFragment extends BaseFragment implements  BGAOnRVItemClickListener, BGAOnRVItemLongClickListener, BGAOnItemChildClickListener, BGAOnItemChildLongClickListener {
+public class RefreshSwipeRecyclerViewFragment extends BaseFragment implements OnRVItemClickListener, OnRVItemLongClickListener, OnItemChildClickListener, OnItemChildLongClickListener {
     private SwipeRecyclerViewAdapter mAdapter;
     private RefreshLayout mRefreshLayout;
     private RecyclerView mDataRv;

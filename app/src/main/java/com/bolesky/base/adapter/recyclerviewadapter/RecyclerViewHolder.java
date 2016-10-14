@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bolesky.base.adapter;
+package com.bolesky.base.adapter.recyclerviewadapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -25,14 +25,14 @@ import android.view.View;
  * 创建时间:15/5/28 上午7:28
  * 描述:适用于RecyclerView的item的ViewHolder
  */
-public class BGARecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     protected Context mContext;
-    protected BGAOnRVItemClickListener mOnRVItemClickListener;
-    protected BGAOnRVItemLongClickListener mOnRVItemLongClickListener;
-    protected BGAViewHolderHelper mViewHolderHelper;
+    protected OnRVItemClickListener mOnRVItemClickListener;
+    protected OnRVItemLongClickListener mOnRVItemLongClickListener;
+    protected ViewHolderHelper mViewHolderHelper;
     protected RecyclerView mRecyclerView;
 
-    public BGARecyclerViewHolder(RecyclerView recyclerView, View itemView, BGAOnRVItemClickListener onRVItemClickListener, BGAOnRVItemLongClickListener onRVItemLongClickListener) {
+    public RecyclerViewHolder(RecyclerView recyclerView, View itemView, OnRVItemClickListener onRVItemClickListener, OnRVItemLongClickListener onRVItemLongClickListener) {
         super(itemView);
         mRecyclerView = recyclerView;
         mContext = mRecyclerView.getContext();
@@ -40,11 +40,11 @@ public class BGARecyclerViewHolder extends RecyclerView.ViewHolder implements Vi
         mOnRVItemLongClickListener = onRVItemLongClickListener;
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
-        mViewHolderHelper = new BGAViewHolderHelper(mRecyclerView, this.itemView);
+        mViewHolderHelper = new ViewHolderHelper(mRecyclerView, this.itemView);
         mViewHolderHelper.setRecyclerViewHolder(this);
     }
 
-    public BGAViewHolderHelper getViewHolderHelper() {
+    public ViewHolderHelper getViewHolderHelper() {
         return mViewHolderHelper;
     }
 

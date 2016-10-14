@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bolesky.base.adapter;
+package com.bolesky.base.adapter.recyclerviewadapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -27,19 +27,19 @@ import java.util.List;
 /**
  * @param <M> 适配的数据类型
  */
-public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGARecyclerViewHolder> {
+public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<RecyclerViewHolder> {
     protected final int mItemLayoutId;
     protected Context mContext;
     protected List<M> mData;
-    protected BGAOnItemChildClickListener mOnItemChildClickListener;
-    protected BGAOnItemChildLongClickListener mOnItemChildLongClickListener;
-    protected BGAOnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
-    protected BGAOnRVItemClickListener mOnRVItemClickListener;
-    protected BGAOnRVItemLongClickListener mOnRVItemLongClickListener;
+    protected OnItemChildClickListener mOnItemChildClickListener;
+    protected OnItemChildLongClickListener mOnItemChildLongClickListener;
+    protected OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
+    protected OnRVItemClickListener mOnRVItemClickListener;
+    protected OnRVItemLongClickListener mOnRVItemLongClickListener;
 
     protected RecyclerView mRecyclerView;
 
-    public BGARecyclerViewAdapter(RecyclerView recyclerView, int itemLayoutId) {
+    public RecyclerViewAdapter(RecyclerView recyclerView, int itemLayoutId) {
         mRecyclerView = recyclerView;
         mContext = mRecyclerView.getContext();
         mItemLayoutId = itemLayoutId;
@@ -52,8 +52,8 @@ public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGA
     }
 
     @Override
-    public BGARecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        BGARecyclerViewHolder viewHolder = new BGARecyclerViewHolder(mRecyclerView, LayoutInflater.from(mContext).inflate(mItemLayoutId, parent, false), mOnRVItemClickListener, mOnRVItemLongClickListener);
+    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        RecyclerViewHolder viewHolder = new RecyclerViewHolder(mRecyclerView, LayoutInflater.from(mContext).inflate(mItemLayoutId, parent, false), mOnRVItemClickListener, mOnRVItemLongClickListener);
         viewHolder.getViewHolderHelper().setOnItemChildClickListener(mOnItemChildClickListener);
         viewHolder.getViewHolderHelper().setOnItemChildLongClickListener(mOnItemChildLongClickListener);
         viewHolder.getViewHolderHelper().setOnItemChildCheckedChangeListener(mOnItemChildCheckedChangeListener);
@@ -66,11 +66,11 @@ public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGA
      *
      * @param viewHolderHelper
      */
-    protected void setItemChildListener(BGAViewHolderHelper viewHolderHelper) {
+    protected void setItemChildListener(ViewHolderHelper viewHolderHelper) {
     }
 
     @Override
-    public void onBindViewHolder(BGARecyclerViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerViewHolder viewHolder, int position) {
         fillData(viewHolder.getViewHolderHelper(), position, getItem(position));
     }
 
@@ -81,14 +81,14 @@ public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGA
      * @param position
      * @param model
      */
-    protected abstract void fillData(BGAViewHolderHelper viewHolderHelper, int position, M model);
+    protected abstract void fillData(ViewHolderHelper viewHolderHelper, int position, M model);
 
     /**
      * 设置item的点击事件监听器
      *
      * @param onRVItemClickListener
      */
-    public void setOnRVItemClickListener(BGAOnRVItemClickListener onRVItemClickListener) {
+    public void setOnRVItemClickListener(OnRVItemClickListener onRVItemClickListener) {
         mOnRVItemClickListener = onRVItemClickListener;
     }
 
@@ -97,7 +97,7 @@ public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGA
      *
      * @param onRVItemLongClickListener
      */
-    public void setOnRVItemLongClickListener(BGAOnRVItemLongClickListener onRVItemLongClickListener) {
+    public void setOnRVItemLongClickListener(OnRVItemLongClickListener onRVItemLongClickListener) {
         mOnRVItemLongClickListener = onRVItemLongClickListener;
     }
 
@@ -106,7 +106,7 @@ public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGA
      *
      * @param onItemChildClickListener
      */
-    public void setOnItemChildClickListener(BGAOnItemChildClickListener onItemChildClickListener) {
+    public void setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
         mOnItemChildClickListener = onItemChildClickListener;
     }
 
@@ -115,7 +115,7 @@ public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGA
      *
      * @param onItemChildLongClickListener
      */
-    public void setOnItemChildLongClickListener(BGAOnItemChildLongClickListener onItemChildLongClickListener) {
+    public void setOnItemChildLongClickListener(OnItemChildLongClickListener onItemChildLongClickListener) {
         mOnItemChildLongClickListener = onItemChildLongClickListener;
     }
 
@@ -124,7 +124,7 @@ public abstract class BGARecyclerViewAdapter<M> extends RecyclerView.Adapter<BGA
      *
      * @param onItemChildCheckedChangeListener
      */
-    public void setOnItemChildCheckedChangeListener(BGAOnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
+    public void setOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
         mOnItemChildCheckedChangeListener = onItemChildCheckedChangeListener;
     }
 

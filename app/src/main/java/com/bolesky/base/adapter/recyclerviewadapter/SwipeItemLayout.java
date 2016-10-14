@@ -1,4 +1,4 @@
-package com.bolesky.base.widget;
+package com.bolesky.base.adapter.recyclerviewadapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -22,12 +22,10 @@ import com.bolesky.base.R;
 import java.lang.reflect.Method;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/5/26 上午2:07
  * 描述:适用于AbsListView和RecyclerView的水平方向滑动item。【作为AbsListView的item单击和长按参考代码家的https://github.com/daimajia/AndroidSwipeLayout】
  */
-public class BGASwipeItemLayout extends FrameLayout {
-    private static final String TAG = BGASwipeItemLayout.class.getSimpleName();
+public class SwipeItemLayout extends FrameLayout {
+    private static final String TAG = SwipeItemLayout.class.getSimpleName();
     private static final String INSTANCE_STATUS = "instance_status";
     private static final String STATUS_OPEN_CLOSE = "status_open_close";
     private static final int VEL_THRESHOLD = 400;
@@ -67,18 +65,18 @@ public class BGASwipeItemLayout extends FrameLayout {
      */
     private boolean mSwipeable = true;
 
-    public BGASwipeItemLayout(Context context, AttributeSet attrs) {
+    public SwipeItemLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BGASwipeItemLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SwipeItemLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(context, attrs);
         initProperty();
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
-        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BGASwipeItemLayout);
+        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SwipeItemLayout);
         final int N = typedArray.getIndexCount();
         for (int i = 0; i < N; i++) {
             initAttr(typedArray.getIndex(i), typedArray);
@@ -87,27 +85,27 @@ public class BGASwipeItemLayout extends FrameLayout {
     }
 
     private void initAttr(int attr, TypedArray typedArray) {
-        if (attr == R.styleable.BGASwipeItemLayout_bga_sil_swipeDirection) {
+        if (attr == R.styleable.SwipeItemLayout_bga_sil_swipeDirection) {
             // 默认向左滑动
             int leftSwipeDirection = typedArray.getInt(attr, mSwipeDirection.ordinal());
 
             if (leftSwipeDirection == SwipeDirection.Right.ordinal()) {
                 mSwipeDirection = SwipeDirection.Right;
             }
-        } else if (attr == R.styleable.BGASwipeItemLayout_bga_sil_bottomMode) {
+        } else if (attr == R.styleable.SwipeItemLayout_bga_sil_bottomMode) {
             // 默认是拉出
             int pullOutBottomMode = typedArray.getInt(attr, mBottomModel.ordinal());
 
             if (pullOutBottomMode == BottomModel.LayDown.ordinal()) {
                 mBottomModel = BottomModel.LayDown;
             }
-        } else if (attr == R.styleable.BGASwipeItemLayout_bga_sil_springDistance) {
+        } else if (attr == R.styleable.SwipeItemLayout_bga_sil_springDistance) {
             // 弹簧距离，不能小于0，默认值为0
             mSpringDistance = typedArray.getDimensionPixelSize(attr, mSpringDistance);
             if (mSpringDistance < 0) {
                 throw new IllegalStateException("bga_sil_springDistance不能小于0");
             }
-        } else if (attr == R.styleable.BGASwipeItemLayout_bga_sil_swipeAble) {
+        } else if (attr == R.styleable.SwipeItemLayout_bga_sil_swipeAble) {
             mSwipeable = typedArray.getBoolean(attr, mSwipeable);
         }
     }
@@ -130,7 +128,7 @@ public class BGASwipeItemLayout extends FrameLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         if (getChildCount() != 2) {
-            throw new IllegalStateException(BGASwipeItemLayout.class.getSimpleName() + "必须有且只有两个子控件");
+            throw new IllegalStateException(SwipeItemLayout.class.getSimpleName() + "必须有且只有两个子控件");
         }
         mTopView = getChildAt(1);
         mBottomView = getChildAt(0);
@@ -198,7 +196,7 @@ public class BGASwipeItemLayout extends FrameLayout {
         ViewParent t = getParent();
         if (t instanceof AdapterView) {
             AdapterView view = (AdapterView) t;
-            int p = view.getPositionForView(BGASwipeItemLayout.this);
+            int p = view.getPositionForView(SwipeItemLayout.this);
             if (p != AdapterView.INVALID_POSITION) {
                 view.performItemClick(view.getChildAt(p - view.getFirstVisiblePosition()), p, view.getAdapter().getItemId(p));
             }
@@ -209,20 +207,20 @@ public class BGASwipeItemLayout extends FrameLayout {
         ViewParent t = getParent();
         if (t instanceof AdapterView) {
             AdapterView view = (AdapterView) t;
-            int p = view.getPositionForView(BGASwipeItemLayout.this);
+            int p = view.getPositionForView(SwipeItemLayout.this);
             if (p == AdapterView.INVALID_POSITION) return false;
             long vId = view.getItemIdAtPosition(p);
             boolean handled = false;
             try {
                 Method m = AbsListView.class.getDeclaredMethod("performLongPress", View.class, int.class, long.class);
                 m.setAccessible(true);
-                handled = (boolean) m.invoke(view, BGASwipeItemLayout.this, p, vId);
+                handled = (boolean) m.invoke(view, SwipeItemLayout.this, p, vId);
 
             } catch (Exception e) {
                 e.printStackTrace();
 
                 if (view.getOnItemLongClickListener() != null) {
-                    handled = view.getOnItemLongClickListener().onItemLongClick(view, BGASwipeItemLayout.this, p, vId);
+                    handled = view.getOnItemLongClickListener().onItemLongClick(view, SwipeItemLayout.this, p, vId);
                 }
                 if (handled) {
                     view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
@@ -629,7 +627,7 @@ public class BGASwipeItemLayout extends FrameLayout {
             mDragHelper.settleCapturedViewAt(finalLeft, getPaddingTop() + mTopLp.topMargin);
 
             // 要执行下面的代码，不然不会自动收缩完毕或展开完毕
-            ViewCompat.postInvalidateOnAnimation(BGASwipeItemLayout.this);
+            ViewCompat.postInvalidateOnAnimation(SwipeItemLayout.this);
         }
 
     };
@@ -701,21 +699,21 @@ public class BGASwipeItemLayout extends FrameLayout {
          *
          * @param swipeItemLayout
          */
-        void onBGASwipeItemLayoutOpened(BGASwipeItemLayout swipeItemLayout);
+        void onBGASwipeItemLayoutOpened(SwipeItemLayout swipeItemLayout);
 
         /**
          * 变为关闭状态
          *
          * @param swipeItemLayout
          */
-        void onBGASwipeItemLayoutClosed(BGASwipeItemLayout swipeItemLayout);
+        void onBGASwipeItemLayoutClosed(SwipeItemLayout swipeItemLayout);
 
         /**
          * 从关闭状态切换到正在打开状态
          *
          * @param swipeItemLayout
          */
-        void onBGASwipeItemLayoutStartOpen(BGASwipeItemLayout swipeItemLayout);
+        void onBGASwipeItemLayoutStartOpen(SwipeItemLayout swipeItemLayout);
     }
 
 }

@@ -7,15 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bolesky.base.R;
-import com.bolesky.base.adapter.BGAOnItemChildClickListener;
-import com.bolesky.base.adapter.BGAOnItemChildLongClickListener;
-import com.bolesky.base.adapter.BGAOnRVItemClickListener;
-import com.bolesky.base.adapter.BGAOnRVItemLongClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnItemChildClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnItemChildLongClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnRVItemClickListener;
+import com.bolesky.base.adapter.recyclerviewadapter.OnRVItemLongClickListener;
 import com.bolesky.base.adapter.SwipeRecyclerViewAdapter;
 import com.bolesky.base.base.BaseActivity;
 import com.bolesky.base.bean.RefreshModel;
 import com.bolesky.base.dagger.component.AppComponent;
-import com.bolesky.base.widget.Divider;
+import com.bolesky.base.adapter.recyclerviewadapter.Divider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import butterknife.Bind;
 import cn.bole.refreshlayout.NormalRefreshViewHolder;
 import cn.bole.refreshlayout.RefreshLayout;
 
-public class SwipeRecyclerViewActivity extends BaseActivity implements BGAOnRVItemClickListener, BGAOnRVItemLongClickListener, BGAOnItemChildClickListener, BGAOnItemChildLongClickListener, RefreshLayout.BGARefreshLayoutDelegate {
+public class SwipeRecyclerViewActivity extends BaseActivity implements OnRVItemClickListener, OnRVItemLongClickListener, OnItemChildClickListener, OnItemChildLongClickListener, RefreshLayout.BGARefreshLayoutDelegate {
     //    private BGABanner mBanner;
     @Bind(R.id.data)
     RecyclerView mDataRv;

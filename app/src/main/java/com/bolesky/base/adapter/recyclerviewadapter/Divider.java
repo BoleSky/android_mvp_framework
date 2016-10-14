@@ -1,4 +1,4 @@
-package com.bolesky.base.widget;
+package com.bolesky.base.adapter.recyclerviewadapter;
 
 import android.content.Context;
 import android.graphics.Canvas;
