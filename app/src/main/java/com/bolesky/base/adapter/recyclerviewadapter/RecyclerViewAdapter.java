@@ -28,16 +28,16 @@ import java.util.List;
  * @param <M> 适配的数据类型
  */
 public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<RecyclerViewHolder> {
-    protected final int mItemLayoutId;
-    protected Context mContext;
-    protected List<M> mData;
-    protected OnItemChildClickListener mOnItemChildClickListener;
-    protected OnItemChildLongClickListener mOnItemChildLongClickListener;
-    protected OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
-    protected OnRVItemClickListener mOnRVItemClickListener;
-    protected OnRVItemLongClickListener mOnRVItemLongClickListener;
+    private final int mItemLayoutId;
+    private Context mContext;
+    private List<M> mData;
+    private OnItemChildClickListener mOnItemChildClickListener;
+    private OnItemChildLongClickListener mOnItemChildLongClickListener;
+    private OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
+    private OnRVItemClickListener mOnRVItemClickListener;
+    private OnRVItemLongClickListener mOnRVItemLongClickListener;
 
-    protected RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
 
     public RecyclerViewAdapter(RecyclerView recyclerView, int itemLayoutId) {
         mRecyclerView = recyclerView;
@@ -64,7 +64,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 为item的孩子节点设置监听器，并不是每一个数据列表都要为item的子控件添加事件监听器，所以这里采用了空实现，需要设置事件监听器时重写该方法即可
      *
-     * @param viewHolderHelper
+     * @param viewHolderHelper viewHolderHelper
      */
     protected void setItemChildListener(ViewHolderHelper viewHolderHelper) {
     }
@@ -77,16 +77,16 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 填充item数据
      *
-     * @param viewHolderHelper
-     * @param position
-     * @param model
+     * @param viewHolderHelper viewHolderHelper
+     * @param position         位置
+     * @param model            数据
      */
     protected abstract void fillData(ViewHolderHelper viewHolderHelper, int position, M model);
 
     /**
      * 设置item的点击事件监听器
      *
-     * @param onRVItemClickListener
+     * @param onRVItemClickListener item的点击事件监听器
      */
     public void setOnRVItemClickListener(OnRVItemClickListener onRVItemClickListener) {
         mOnRVItemClickListener = onRVItemClickListener;
@@ -95,7 +95,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 设置item的长按事件监听器
      *
-     * @param onRVItemLongClickListener
+     * @param onRVItemLongClickListener item的长按事件监听器
      */
     public void setOnRVItemLongClickListener(OnRVItemLongClickListener onRVItemLongClickListener) {
         mOnRVItemLongClickListener = onRVItemLongClickListener;
@@ -104,7 +104,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 设置item中的子控件点击事件监听器
      *
-     * @param onItemChildClickListener
+     * @param onItemChildClickListener item中的子控件点击事件监听器
      */
     public void setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
         mOnItemChildClickListener = onItemChildClickListener;
@@ -113,7 +113,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 设置item中的子控件长按事件监听器
      *
-     * @param onItemChildLongClickListener
+     * @param onItemChildLongClickListener item中的子控件长按事件监听器
      */
     public void setOnItemChildLongClickListener(OnItemChildLongClickListener onItemChildLongClickListener) {
         mOnItemChildLongClickListener = onItemChildLongClickListener;
@@ -122,7 +122,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 设置item子控件选中状态变化事件监听器
      *
-     * @param onItemChildCheckedChangeListener
+     * @param onItemChildCheckedChangeListener item子控件选中状态变化事件监听器
      */
     public void setOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
         mOnItemChildCheckedChangeListener = onItemChildCheckedChangeListener;
@@ -135,7 +135,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 获取数据集合
      *
-     * @return
+     * @return List
      */
     public List<M> getData() {
         return mData;
@@ -144,7 +144,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 在集合头部添加新的数据集合（下拉从服务器获取最新的数据集合，例如新浪微博加载最新的几条微博数据）
      *
-     * @param data
+     * @param data 新加的填充数据
      */
     public void addNewData(List<M> data) {
         if (data != null) {
@@ -156,7 +156,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 在集合尾部添加更多数据集合（上拉从服务器获取更多的数据集合，例如新浪微博列表上拉加载更晚时间发布的微博数据）
      *
-     * @param data
+     * @param data 更多数据集合
      */
     public void addMoreData(List<M> data) {
         if (data != null) {
@@ -168,7 +168,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 设置全新的数据集合，如果传入null，则清空数据列表（第一次从服务器加载数据，或者下拉刷新当前界面数据表）
      *
-     * @param data
+     * @param data 全新的数据集合
      */
     public void setData(List<M> data) {
         if (data != null) {
@@ -190,7 +190,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 删除指定索引数据条目
      *
-     * @param position
+     * @param position 索引数据条目
      */
     public void removeItem(int position) {
         mData.remove(position);
@@ -200,7 +200,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 删除指定数据条目
      *
-     * @param model
+     * @param model 指定数据条目
      */
     public void removeItem(M model) {
         removeItem(mData.indexOf(model));
@@ -209,8 +209,8 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 在指定位置添加数据条目
      *
-     * @param position
-     * @param model
+     * @param position 指定位置
+     * @param model 添加的数据
      */
     public void addItem(int position, M model) {
         mData.add(position, model);
@@ -220,7 +220,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 在集合头部添加数据条目
      *
-     * @param model
+     * @param model 添加数据
      */
     public void addFirstItem(M model) {
         addItem(0, model);
@@ -229,7 +229,7 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 在集合末尾添加数据条目
      *
-     * @param model
+     * @param model 添加数据
      */
     public void addLastItem(M model) {
         addItem(mData.size(), model);
@@ -238,8 +238,8 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 替换指定索引的数据条目
      *
-     * @param location
-     * @param newModel
+     * @param location 指定索引
+     * @param newModel 数据
      */
     public void setItem(int location, M newModel) {
         mData.set(location, newModel);
@@ -249,8 +249,8 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 替换指定数据条目
      *
-     * @param oldModel
-     * @param newModel
+     * @param oldModel 旧数据
+     * @param newModel 新数据
      */
     public void setItem(M oldModel, M newModel) {
         setItem(mData.indexOf(oldModel), newModel);
@@ -259,8 +259,8 @@ public abstract class RecyclerViewAdapter<M> extends RecyclerView.Adapter<Recycl
     /**
      * 移动数据条目的位置
      *
-     * @param fromPosition
-     * @param toPosition
+     * @param fromPosition 起始位置
+     * @param toPosition 目标位置
      */
     public void moveItem(int fromPosition, int toPosition) {
         mData.add(toPosition, mData.remove(fromPosition));

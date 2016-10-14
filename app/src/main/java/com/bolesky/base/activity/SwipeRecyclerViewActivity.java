@@ -52,6 +52,14 @@ public class SwipeRecyclerViewActivity extends BaseActivity implements OnRVItemC
     @Override
     public void initDatas() {
 
+        mDataRv.setAdapter(mAdapter);
+        RefreshModel refreshModel;
+        List<RefreshModel> list=new ArrayList<>();
+        for (int i= 0;i <=10;i++){
+            refreshModel=new RefreshModel("Title"+i,"detail"+i);
+            list.add(refreshModel);
+        }
+        mAdapter.setData(list);
     }
 
     @Override
@@ -71,27 +79,18 @@ public class SwipeRecyclerViewActivity extends BaseActivity implements OnRVItemC
                 }
             }
         });
+        mRefreshLayout.setRefreshViewHolder(new NormalRefreshViewHolder(this, true));
+        mDataRv.addItemDecoration(new Divider(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mDataRv.setLayoutManager(linearLayoutManager);
     }
 
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-        mRefreshLayout.setRefreshViewHolder(new NormalRefreshViewHolder(this, true));
 
 
-        mDataRv.addItemDecoration(new Divider(this));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mDataRv.setLayoutManager(linearLayoutManager);
-
-        mDataRv.setAdapter(mAdapter);
-        RefreshModel refreshModel;
-        List<RefreshModel> list=new ArrayList<>();
-        for (int i= 0;i <=10;i++){
-            refreshModel=new RefreshModel("Title"+i,"detail"+i);
-            list.add(refreshModel);
-        }
-        mAdapter.setData(list);
     }
 
 

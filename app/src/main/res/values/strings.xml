@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SportsInfo</string>
+    <string name="home">首页</string>
+    <string name="subject">书影音</string>
+    <string name="status">广播</string>
+    <string name="group">小组</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

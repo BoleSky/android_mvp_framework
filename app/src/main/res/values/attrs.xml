@@ -6,7 +6,7 @@
         <attr name="border_overlay" format="boolean" />
         <attr name="fill_color" format="color" />
     </declare-styleable>
-    <declare-styleable name="BGASwipeItemLayout">
+    <declare-styleable name="SwipeItemLayout">
         <attr name="bga_sil_swipeDirection" format="enum">
             <enum name="left" value="0" />
             <enum name="right" value="1" />

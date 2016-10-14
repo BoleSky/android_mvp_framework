@@ -11,10 +11,6 @@ import com.bolesky.base.adapter.recyclerviewadapter.SwipeItemLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * 描述:
- */
 public class SwipeRecyclerViewAdapter extends RecyclerViewAdapter<RefreshModel> {
     /**
      * 当前处于打开状态的item

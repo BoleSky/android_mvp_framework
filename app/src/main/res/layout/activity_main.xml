@@ -4,7 +4,7 @@
                                                    android:layout_height="match_parent"
                                                    android:background="@android:color/transparent">
     <!--下层 左边的布局-->
-    <include layout="@layout/left_main_view_layout" />
+    <include layout="@layout/left_main_view_layout"/>
     <!--上层 右边的主布局-->
     <com.bolesky.base.widget.sidesliplayout.SideSlipLayout
         android:id="@+id/sideSlipLayout"
@@ -17,13 +17,14 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/common_toolbar" />
-            <!--中间内容后面放入Fragment-->
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+            <include layout="@layout/common_toolbar"/>
+            <!--&lt;!&ndash;中间内容后面放入Fragment&ndash;&gt;-->
+            <!--<FrameLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent">-->
 
-            </FrameLayout>
+            <!--</FrameLayout>-->
+            <include layout="@layout/activity_tab_layout"/>
         </LinearLayout>
     </com.bolesky.base.widget.sidesliplayout.SideSlipLayout>
 </com.bolesky.base.widget.sidesliplayout.DragLayout>

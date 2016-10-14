@@ -37,21 +37,21 @@ import android.widget.TextView;
  * 描述:为AdapterView和RecyclerView的item设置常见属性（链式编程）
  */
 public class ViewHolderHelper implements View.OnClickListener, View.OnLongClickListener, CompoundButton.OnCheckedChangeListener {
-    protected final SparseArray<View> mViews;
-    protected OnItemChildClickListener mOnItemChildClickListener;
-    protected OnItemChildLongClickListener mOnItemChildLongClickListener;
-    protected OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
-    protected View mConvertView;
-    protected Context mContext;
-    protected int mPosition;
-    protected RecyclerViewHolder mRecyclerViewHolder;
-    protected RecyclerView mRecyclerView;
+    private final SparseArray<View> mViews;
+    private OnItemChildClickListener mOnItemChildClickListener;
+    private OnItemChildLongClickListener mOnItemChildLongClickListener;
+    private OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
+    private View mConvertView;
+    private Context mContext;
+    private int mPosition;
+    private RecyclerViewHolder mRecyclerViewHolder;
+    private RecyclerView mRecyclerView;
 
-    protected ViewGroup mAdapterView;
+    private ViewGroup mAdapterView;
     /**
      * 留着以后作为扩充对象
      */
-    protected Object mObj;
+    private Object mObj;
 
     public ViewHolderHelper(ViewGroup adapterView, View convertView) {
         mViews = new SparseArray<>();
@@ -109,7 +109,7 @@ public class ViewHolderHelper implements View.OnClickListener, View.OnLongClickL
      *
      * @param onItemChildLongClickListener
      */
-    public void setOnItemChildLongClickListener(OnItemChildLongClickListener onItemChildLongClickListener) {
+    void setOnItemChildLongClickListener(OnItemChildLongClickListener onItemChildLongClickListener) {
         mOnItemChildLongClickListener = onItemChildLongClickListener;
     }
 
@@ -127,7 +127,7 @@ public class ViewHolderHelper implements View.OnClickListener, View.OnLongClickL
      *
      * @param onItemChildCheckedChangeListener
      */
-    public void setOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
+    void setOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
         mOnItemChildCheckedChangeListener = onItemChildCheckedChangeListener;
     }
 
