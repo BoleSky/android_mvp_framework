@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.bolesky.base.R;
-import com.bolesky.base.SportsApplication;
+import com.bolesky.base.App;
 import com.bolesky.base.dagger.component.AppComponent;
 import com.bolesky.base.utils.StatusBarCompat;
 import com.progresslibrary.CustomDialog;
@@ -74,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         context = this;
         ButterKnife.bind(this);
-        setupActivityComponent(SportsApplication.getInstance().getAppComponent());
+        setupActivityComponent(App.getInstance().getAppComponent());
         toolbar = ButterKnife.findById(this, R.id.common_toolbar);
         if (toolbar != null) {
             initToolBar();

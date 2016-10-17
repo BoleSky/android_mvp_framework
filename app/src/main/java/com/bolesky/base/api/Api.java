@@ -1,6 +1,6 @@
 package com.bolesky.base.api;
 
-import com.bolesky.base.SportsApplication;
+import com.bolesky.base.App;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +56,7 @@ public class Api {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             //设置 请求的缓存
-            File cacheFile = new File(SportsApplication.getInstance().getCacheDir(), "cache");
+            File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
             Cache cache = new Cache(cacheFile, 1024 * 1024 * 250); //250Mb
 
             OkHttpClient client = new OkHttpClient.Builder()

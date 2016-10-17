@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/padding_10dp"
+              android:paddingRight="@dimen/padding_10dp">
 
     <ImageView
-        android:id="@+id/title_img"
-        android:layout_width="20dp"
-        android:layout_height="20dp" />
+        android:id="@+id/iv_image"
+        android:layout_width="@dimen/layout_width_25dp"
+        android:layout_height="@dimen/layout_height_25dp"/>
 
     <TextView
-        android:id="@+id/title_text"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        android:textSize="@dimen/fontSize_11sp"
+        android:layout_marginTop="@dimen/margin_3dp"/>
 
 </LinearLayout>

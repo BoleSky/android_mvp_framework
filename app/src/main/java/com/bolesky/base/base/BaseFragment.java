@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bolesky.base.SportsApplication;
+import com.bolesky.base.App;
 
 
 /**
@@ -19,7 +19,7 @@ import com.bolesky.base.SportsApplication;
  */
 public abstract class BaseFragment extends Fragment {
     protected String TAG;
-    protected SportsApplication mApp;
+    protected App mApp;
     protected View mContentView;
 //    protected Engine mEngine;
     protected BaseActivity mActivity;
@@ -33,7 +33,7 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         TAG = this.getClass().getSimpleName();
-        mApp = SportsApplication.getInstance();
+        mApp = App.getInstance();
         mActivity = (BaseActivity) getActivity();
 //        mEngine = mApp.getEngine();
     }

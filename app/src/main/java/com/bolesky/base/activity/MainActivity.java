@@ -56,14 +56,14 @@ public class MainActivity extends BaseActivity {
             R.string.subject,
             R.string.status,
             R.string.group};
-    //Tab 图片
+    //Tab 选中图片
     private final int[] TAB_SELECTED_IMGS = new int[]{
             R.drawable.ic_tab_home_active,
             R.drawable.ic_tab_subject_active,
             R.drawable.ic_tab_status_active,
             R.drawable.ic_tab_group_active};
 
-    //Tab 图片
+    //Tab 未选中图片
     private final int[] TAB_UNSELECTED_IMGS = new int[]{
             R.drawable.ic_tab_home_normal,
             R.drawable.ic_tab_subject_normal,
@@ -75,7 +75,6 @@ public class MainActivity extends BaseActivity {
             new SubjectFragment(),
             new StatusFragment(),
             new GroupFragment()};
-    private FragmentTabPagerAdapter mFragmentTabPagerAdapter;
 
     @Override
     public int getLayoutId() {
@@ -130,8 +129,8 @@ public class MainActivity extends BaseActivity {
 //                ViewHelper.setAlpha(ssl, 1 - percent);
             }
         });
-        mFragmentTabPagerAdapter=new FragmentTabPagerAdapter(getSupportFragmentManager(),TAB_FRAGMENTS,this);
-        mViewPager.setAdapter(mFragmentTabPagerAdapter);
+        FragmentTabPagerAdapter fragmentTabPagerAdapter = new FragmentTabPagerAdapter(getSupportFragmentManager(), TAB_FRAGMENTS, this);
+        mViewPager.setAdapter(fragmentTabPagerAdapter);
         initTabNavigator();
     }
 
@@ -151,8 +150,8 @@ public class MainActivity extends BaseActivity {
                 PagerTitleView pagerTitleView = new PagerTitleView(context);
                 // load layout
                 View view = LayoutInflater.from(context).inflate(R.layout.layout_tab, null);
-                final ImageView image = (ImageView) view.findViewById(R.id.title_img);
-                final TextView title = (TextView) view.findViewById(R.id.title_text);
+                final ImageView image = (ImageView) view.findViewById(R.id.iv_image);
+                final TextView title = (TextView) view.findViewById(R.id.tv_title);
                 image.setImageResource(TAB_UNSELECTED_IMGS[index]);
                 title.setText(TAB_TITLES[index]);
                 pagerTitleView.setContentView(view);
@@ -171,8 +170,8 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {
-                        image.setScaleX(1.3f + (1.25f - 1.3f) * leavePercent);
-                        image.setScaleY(1.3f + (1.25f - 1.3f) * leavePercent);
+                        image.setScaleX(1.0f + (1.2f - 1.0f) * leavePercent);
+                        image.setScaleY(1.0f + (1.2f - 1.0f) * leavePercent);
                         image.setImageResource(TAB_UNSELECTED_IMGS[index]);
                     }
 

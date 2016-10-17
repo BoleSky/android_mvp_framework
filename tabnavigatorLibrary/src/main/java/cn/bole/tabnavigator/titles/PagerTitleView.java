@@ -82,7 +82,7 @@ public class PagerTitleView extends FrameLayout implements IMeasurablePagerTitle
     /**
      * 外部直接将布局设置进来
      *
-     * @param contentView
+     * @param contentView 底部Item视图，Title和Image
      */
     public void setContentView(View contentView) {
         setContentView(contentView, null);

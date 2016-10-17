@@ -3,7 +3,7 @@ package com.bolesky.base.utils;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.bolesky.base.SportsApplication;
+import com.bolesky.base.App;
 
 /**
  * Created by xiaoyong.cui
@@ -27,7 +27,7 @@ public class ToastUtils {
             message = "";
         }
         if (isShow)
-            Toast.makeText(SportsApplication.getInstance(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.getInstance(), message, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -40,7 +40,7 @@ public class ToastUtils {
             message = "";
         }
         if (isShow)
-            Toast.makeText(SportsApplication.getInstance(), message, Toast.LENGTH_LONG).show();
+            Toast.makeText(App.getInstance(), message, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -54,6 +54,6 @@ public class ToastUtils {
             message = "";
         }
         if (isShow)
-            Toast.makeText(SportsApplication.getInstance(), message, duration).show();
+            Toast.makeText(App.getInstance(), message, duration).show();
     }
 }

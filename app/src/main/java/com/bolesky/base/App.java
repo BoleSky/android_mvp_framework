@@ -12,8 +12,8 @@ import com.bolesky.base.dagger.module.AppModule;
  * E-Mail:hellocui@aliyun.com
  */
 
-public class SportsApplication extends Application {
-    private static SportsApplication mInstance;
+public class App extends Application {
+    private static App mInstance;
     private AppComponent appComponent;
 
     @Override
@@ -23,7 +23,7 @@ public class SportsApplication extends Application {
         initComponent();
     }
 
-    public static SportsApplication getInstance() {
+    public static App getInstance() {
         return mInstance;
     }
 
