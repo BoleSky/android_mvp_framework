@@ -10,8 +10,6 @@ import cn.bole.tabnavigator.abs.IMeasurablePagerTitleView;
 
 /**
  * 通用的指示器标题，子元素内容由外部提供，事件回传给外部
- * 博客: http://hackware.lucode.net
- * Created by hackware on 2016/7/3.
  */
 public class PagerTitleView extends FrameLayout implements IMeasurablePagerTitleView {
     private OnPagerTitleChangeListener mOnPagerTitleChangeListener;

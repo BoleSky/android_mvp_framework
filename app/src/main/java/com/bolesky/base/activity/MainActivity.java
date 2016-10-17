@@ -1,11 +1,9 @@
 package com.bolesky.base.activity;
 
-import android.graphics.drawable.Drawable;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +26,13 @@ import com.bolesky.base.widget.sidesliplayout.SideSlipLayout;
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import cn.bole.tabnavigator.MagicIndicator;
+import cn.bole.tabnavigator.TabNavigator;
+import cn.bole.tabnavigator.ViewPagerHelper;
+import cn.bole.tabnavigator.abs.IPagerIndicator;
+import cn.bole.tabnavigator.abs.IPagerTitleView;
+import cn.bole.tabnavigator.abs.NavigatorAdapter;
+import cn.bole.tabnavigator.titles.PagerTitleView;
 
 public class MainActivity extends BaseActivity {
     @Override
@@ -41,10 +46,10 @@ public class MainActivity extends BaseActivity {
     DragLayout dl;
     @Bind(R.id.sideSlipLayout)
     SideSlipLayout ssl;
-    @Bind(R.id.tl_bottom)
-    TabLayout mTabLayout;
-    @Bind(R.id.vp_content)
+    @Bind(R.id.view_pager)
     ViewPager mViewPager;
+    @Bind(R.id.magic_indicator)
+    MagicIndicator mMagicIndicator;
     //Tab 文字
     private final int[] TAB_TITLES = new int[]{
             R.string.home,
@@ -52,11 +57,18 @@ public class MainActivity extends BaseActivity {
             R.string.status,
             R.string.group};
     //Tab 图片
-    private final int[] TAB_IMGS = new int[]{
-            R.drawable.tab_home_selector,
-            R.drawable.tab_subject_selector,
-            R.drawable.tab_status_selector,
-            R.drawable.tab_group_selector};
+    private final int[] TAB_SELECTED_IMGS = new int[]{
+            R.drawable.ic_tab_home_active,
+            R.drawable.ic_tab_subject_active,
+            R.drawable.ic_tab_status_active,
+            R.drawable.ic_tab_group_active};
+
+    //Tab 图片
+    private final int[] TAB_UNSELECTED_IMGS = new int[]{
+            R.drawable.ic_tab_home_normal,
+            R.drawable.ic_tab_subject_normal,
+            R.drawable.ic_tab_status_normal,
+            R.drawable.ic_tab_group_normal};
     //Fragment 数组
     private final Fragment[] TAB_FRAGMENTS = new Fragment[]{
             new HomeFragment(),
@@ -101,8 +113,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void configViews() {
 //        showDialog();
-        String s = apiWrapper.getSimple();
-        Log.e("xiaoyong.cui", s);
         dl.setDragListener(new DragLayout.DragListener() {
             //界面打开的时候
             @Override
@@ -120,39 +130,77 @@ public class MainActivity extends BaseActivity {
 //                ViewHelper.setAlpha(ssl, 1 - percent);
             }
         });
-
-        mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(getSupportFragmentManager(), TAB_FRAGMENTS, TAB_TITLES, this);
+        mFragmentTabPagerAdapter=new FragmentTabPagerAdapter(getSupportFragmentManager(),TAB_FRAGMENTS,this);
         mViewPager.setAdapter(mFragmentTabPagerAdapter);
-        setTabs(mTabLayout, this.getLayoutInflater(), TAB_TITLES, TAB_IMGS);
-        mTabLayout.setupWithViewPager(mViewPager);
-//        mViewPager.setCurrentItem(0);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        initTabNavigator();
     }
 
-    /**
-     * @description: 设置添加Tab
-     */
-    private void setTabs(TabLayout tabLayout, LayoutInflater inflater, int[] titles, int[] images) {
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            Drawable d = null;
-            switch (i) {
-                case 0:
-                    d = getResources().getDrawable(images[0]);
-                    break;
-                case 1:
-                    d = getResources().getDrawable(images[1]);
-                    break;
-                case 2:
-                    d = getResources().getDrawable(images[2]);
-                    break;
-                case 3:
-                    d = getResources().getDrawable(images[3]);
-                    break;
+    private void initTabNavigator() {
+
+        TabNavigator tabNavigator = new TabNavigator(this);
+        tabNavigator.setAdjustMode(true);
+        tabNavigator.setAdapter(new NavigatorAdapter() {
+
+            @Override
+            public int getCount() {
+                return TAB_TITLES.length;
             }
-            tab.setIcon(d);
-        }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, final int index) {
+                PagerTitleView pagerTitleView = new PagerTitleView(context);
+                // load layout
+                View view = LayoutInflater.from(context).inflate(R.layout.layout_tab, null);
+                final ImageView image = (ImageView) view.findViewById(R.id.title_img);
+                final TextView title = (TextView) view.findViewById(R.id.title_text);
+                image.setImageResource(TAB_UNSELECTED_IMGS[index]);
+                title.setText(TAB_TITLES[index]);
+                pagerTitleView.setContentView(view);
+
+                pagerTitleView.setOnPagerTitleChangeListener(new PagerTitleView.OnPagerTitleChangeListener() {
+
+                    @Override
+                    public void onSelected(int index, int totalCount) {
+                        title.setTextColor(getResources().getColor(R.color.lawn_green));
+                    }
+
+                    @Override
+                    public void onDeselected(int index, int totalCount) {
+                        title.setTextColor(getResources().getColor(R.color.light_gray));
+                    }
+
+                    @Override
+                    public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {
+                        image.setScaleX(1.3f + (1.25f - 1.3f) * leavePercent);
+                        image.setScaleY(1.3f + (1.25f - 1.3f) * leavePercent);
+                        image.setImageResource(TAB_UNSELECTED_IMGS[index]);
+                    }
+
+                    @Override
+                    public void onEnter(int index, int totalCount, float enterPercent, boolean leftToRight) {
+                        image.setScaleX(1.0f + (1.5f - 1.0f) * enterPercent);
+                        image.setScaleY(1.0f + (1.5f - 1.0f) * enterPercent);
+                        image.setImageResource(TAB_SELECTED_IMGS[index]);
+                    }
+                });
+
+                pagerTitleView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mViewPager.setCurrentItem(index);
+                    }
+                });
+
+                return pagerTitleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                return null;
+            }
+        });
+        mMagicIndicator.setNavigator(tabNavigator);
+        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
     @Override

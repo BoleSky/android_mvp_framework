@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/progressLibrary" />
             <option value="$PROJECT_DIR$/refreshLibrary" />
+            <option value="$PROJECT_DIR$/tabnavigatorLibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
