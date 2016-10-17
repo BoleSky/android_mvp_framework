@@ -1,4 +1,4 @@
-package com.bolesky.base.activity;
+package com.bolesky.base.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
