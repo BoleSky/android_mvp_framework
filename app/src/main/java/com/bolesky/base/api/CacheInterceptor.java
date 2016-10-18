@@ -1,7 +1,7 @@
 package com.bolesky.base.api;
 
 import com.bolesky.base.App;
-import com.bolesky.base.utils.NetUtils;
+import com.bolesky.base.utils.BaseUtils;
 
 import java.io.IOException;
 
@@ -23,14 +23,14 @@ public class CacheInterceptor {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                if (!NetUtils.isNetworkReachable(App.getInstance())) {
+                if (BaseUtils.isNetworkConnected(App.getInstance())) {
                     request = request.newBuilder()
                             .addHeader(Api.HEADER_Client_Type, Api.FROM_ANDROID)
                             .cacheControl(CacheControl.FORCE_CACHE)
                             .build();
                 }
                 Response response = chain.proceed(request);
-                if (NetUtils.isNetworkReachable(App.getInstance())) {
+                if (BaseUtils.isNetworkConnected(App.getInstance())) {
                     int maxAge = 60 * 60 * 10;
                     // 有网络时 设置缓存超时时间10分钟
                     response.newBuilder()

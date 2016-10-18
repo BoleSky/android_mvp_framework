@@ -26,6 +26,7 @@ import com.bolesky.base.widget.sidesliplayout.SideSlipLayout;
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.bole.tabnavigator.MagicIndicator;
 import cn.bole.tabnavigator.TabNavigator;
 import cn.bole.tabnavigator.ViewPagerHelper;
@@ -143,7 +144,6 @@ public class MainActivity extends BaseActivity {
         TabNavigator tabNavigator = new TabNavigator(this);
         tabNavigator.setAdjustMode(true);
         tabNavigator.setAdapter(new NavigatorAdapter() {
-
             @Override
             public int getCount() {
                 return TAB_TITLES.length;
@@ -154,8 +154,9 @@ public class MainActivity extends BaseActivity {
                 PagerTitleView pagerTitleView = new PagerTitleView(context);
                 // load layout
                 View view = LayoutInflater.from(context).inflate(R.layout.layout_tab, null);
-                final ImageView image = (ImageView) view.findViewById(R.id.iv_image);
-                final TextView title = (TextView) view.findViewById(R.id.tv_title);
+                ButterKnife.bind(this,view);
+                final ImageView image= (ImageView) view.findViewById(R.id.iv_image);
+                final TextView title= (TextView) view.findViewById(R.id.tv_title);
                 image.setImageResource(TAB_UNSELECTED_IMAGES[index]);
                 title.setText(TAB_TITLES[index]);
                 pagerTitleView.setContentView(view);
