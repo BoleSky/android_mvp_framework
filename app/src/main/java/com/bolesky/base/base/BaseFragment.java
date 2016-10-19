@@ -8,14 +8,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.bolesky.base.App;
 import com.bolesky.base.R;
+import com.progresslibrary.CustomDialog;
 
 public abstract class BaseFragment extends Fragment {
     protected String TAG = this.getClass().getSimpleName();
     protected App mApp;
     protected View mContentView;
+    private CustomDialog dialog;//进度条
     protected BaseActivity mActivity;
     protected boolean mIsVisible;
 
@@ -118,5 +121,63 @@ public abstract class BaseFragment extends Fragment {
      */
     protected <VT extends View> VT getViewById(@IdRes int id) {
         return (VT) mContentView.findViewById(id);
+    }
+
+    /**
+     * 获取CustomDialog实例
+     *
+     * @return CustomDialog
+     */
+    public CustomDialog getDialog() {
+        if (dialog == null) {
+            dialog = CustomDialog.instance(mActivity);
+            dialog.setCancelable(false);
+        }
+        return dialog;
+    }
+
+    /**
+     * 隐藏加载对话框
+     */
+    public void hideDialog() {
+        if (dialog != null)
+            dialog.hide();
+    }
+
+    /**
+     * 显示加载对话框
+     */
+    public void showDialog() {
+        getDialog().show();
+    }
+
+    /**
+     * 去除加载对话框
+     */
+    public void dismissDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
+
+    /**
+     * 显示系统状态栏
+     */
+    protected void showStatusBar() {
+        WindowManager.LayoutParams attr = mActivity.getWindow().getAttributes();
+        attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        mActivity.getWindow().setAttributes(attr);
+        //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * 隐藏系统状态栏
+     */
+    protected void hideStatusBar() {
+        WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
+        lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        mActivity.getWindow().setAttributes(lp);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 }
