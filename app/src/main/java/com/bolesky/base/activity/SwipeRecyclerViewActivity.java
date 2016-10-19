@@ -63,14 +63,11 @@ public class SwipeRecyclerViewActivity extends BaseActivity implements OnRVItemC
     }
 
     @Override
-    public void configViews() {
-        mRefreshLayout.setDelegate(this);
-        mAdapter = new SwipeRecyclerViewAdapter(mDataRv);
+    protected void setListener() {
         mAdapter.setOnRVItemClickListener(this);
         mAdapter.setOnRVItemLongClickListener(this);
         mAdapter.setOnItemChildClickListener(this);
         mAdapter.setOnItemChildLongClickListener(this);
-
         mDataRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -79,6 +76,13 @@ public class SwipeRecyclerViewActivity extends BaseActivity implements OnRVItemC
                 }
             }
         });
+    }
+
+    @Override
+    public void configViews() {
+        mRefreshLayout.setDelegate(this);
+        mAdapter = new SwipeRecyclerViewAdapter(mDataRv);
+
         mRefreshLayout.setRefreshViewHolder(new NormalRefreshViewHolder(this, true));
         mDataRv.addItemDecoration(new Divider(this));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

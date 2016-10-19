@@ -112,7 +112,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-//        showDialog();
+        FragmentTabPagerAdapter fragmentTabPagerAdapter = new FragmentTabPagerAdapter(this.getSupportFragmentManager(),
+                TAB_FRAGMENTS, this);
+        mViewPager.setAdapter(fragmentTabPagerAdapter);
+        initTabNavigator();
+    }
+
+    @Override
+    protected void setListener() {
         dl.setDragListener(new DragLayout.DragListener() {
             //界面打开的时候
             @Override
@@ -130,10 +137,7 @@ public class MainActivity extends BaseActivity {
 //                ViewHelper.setAlpha(ssl, 1 - percent);
             }
         });
-        FragmentTabPagerAdapter fragmentTabPagerAdapter = new FragmentTabPagerAdapter(this.getSupportFragmentManager(),
-                TAB_FRAGMENTS, this);
-        mViewPager.setAdapter(fragmentTabPagerAdapter);
-        initTabNavigator();
+
     }
 
     /**
@@ -154,9 +158,9 @@ public class MainActivity extends BaseActivity {
                 PagerTitleView pagerTitleView = new PagerTitleView(context);
                 // load layout
                 View view = LayoutInflater.from(context).inflate(R.layout.layout_tab, null);
-                ButterKnife.bind(this,view);
-                final ImageView image= (ImageView) view.findViewById(R.id.iv_image);
-                final TextView title= (TextView) view.findViewById(R.id.tv_title);
+                ButterKnife.bind(this, view);
+                final ImageView image = (ImageView) view.findViewById(R.id.iv_image);
+                final TextView title = (TextView) view.findViewById(R.id.tv_title);
                 image.setImageResource(TAB_UNSELECTED_IMAGES[index]);
                 title.setText(TAB_TITLES[index]);
                 pagerTitleView.setContentView(view);

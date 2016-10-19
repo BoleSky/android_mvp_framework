@@ -52,6 +52,12 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 对各种控件进行设置、适配、填充数据
      */
     public abstract void configViews();
+
+    /**
+     * 给View控件添加事件监听器
+     */
+    protected abstract void setListener();
+
     /**
      * 处理业务逻辑，状态恢复等操作
      *
@@ -82,6 +88,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         initDatas();
         configViews();
+        setListener();
         processLogic(savedInstanceState);
     }
 

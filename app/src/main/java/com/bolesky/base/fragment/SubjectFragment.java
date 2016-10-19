@@ -3,18 +3,20 @@ package com.bolesky.base.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bolesky.base.R;
+import com.bolesky.base.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SubjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SubjectFragment extends Fragment {
+public class SubjectFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,10 +59,44 @@ public class SubjectFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subject, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_subject;
+    }
+
+    /**
+     * 对数据进行初始化
+     */
+    @Override
+    public void initDatas() {
+        Log.e("xiaoyong.cui","SubjectFragment");
+    }
+
+    /**
+     * 初始化View控件,对各种控件进行设置、适配、填充数据
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    protected void configViews(Bundle savedInstanceState) {
+
+    }
+
+    /**
+     * 给View控件添加事件监听器
+     */
+    @Override
+    protected void setListener() {
+
+    }
+
+    /**
+     * 处理业务逻辑，状态恢复等操作
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
+
     }
 
 }
