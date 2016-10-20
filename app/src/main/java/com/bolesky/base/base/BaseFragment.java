@@ -14,6 +14,8 @@ import com.bolesky.base.App;
 import com.bolesky.base.R;
 import com.progresslibrary.CustomDialog;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseFragment extends Fragment {
     protected String TAG = this.getClass().getSimpleName();
     protected App mApp;
@@ -74,6 +76,7 @@ public abstract class BaseFragment extends Fragment {
         // 避免多次从xml中加载布局文件
         if (mContentView == null) {
             mContentView = inflater.inflate(getLayoutId(), container, false);
+            ButterKnife.bind(this, mContentView);
             configViews(savedInstanceState);
             setListener();
             processLogic(savedInstanceState);
@@ -84,6 +87,12 @@ public abstract class BaseFragment extends Fragment {
             }
         }
         return mContentView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     protected abstract int getLayoutId();
