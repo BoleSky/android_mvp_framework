@@ -66,6 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void processLogic(Bundle savedInstanceState);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        overridePendingTransition(R.anim.activity_right_in, R.anim.activity_right_out);
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         if (statusBarColor > 0) {
@@ -95,6 +96,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_right_in, R.anim.activity_right_out);
     }
 
     @Override

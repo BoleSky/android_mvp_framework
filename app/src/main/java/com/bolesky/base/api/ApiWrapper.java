@@ -1,5 +1,7 @@
 package com.bolesky.base.api;
 
+import android.util.Log;
+
 import rx.Observable;
 
 /**
@@ -10,15 +12,19 @@ import rx.Observable;
 
 public class ApiWrapper extends Api {
 
+    private final static String TAG = "ApiWrapper";
+
     public Observable<String> getInfo() {
+        Log.d(TAG, "------>getInfo()");
         return applySchedulers(getService().getData());
     }
 
     /**
      * 测试函数
+     *
      * @return String 字符串：【【xiaoyong.cui->Test】】
      */
-    public String getSimple(){
+    public String getSimple() {
         return "【【xiaoyong.cui->Test】】";
     }
 }

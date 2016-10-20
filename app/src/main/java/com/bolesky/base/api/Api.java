@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,10 +23,10 @@ import rx.schedulers.Schedulers;
  */
 
 public class Api {
-    private static final String BASE_URL="api.baidu.com";
+    private static final String BASE_URL = "api.baidu.com";
     // 消息头
     public static final String HEADER_Client_Type = "Client-Type";
-    public static final String FROM_ANDROID = "ayb-android";
+    public static final String FROM_ANDROID = "android";
     private static ApiService service;
     private static Retrofit retrofit;
 
@@ -37,7 +36,8 @@ public class Api {
         }
         return service;
     }
-//    /**
+
+    //    /**
 //     * 拦截器  给所有的请求添加消息头
 //     */
 //    private static Interceptor mInterceptor = new Interceptor(){
@@ -53,11 +53,13 @@ public class Api {
     private static Retrofit getRetrofit() {
         if (retrofit == null) {
             // log拦截器  打印所有的log
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new LogUtils());
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             //设置 请求的缓存
             File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
             Cache cache = new Cache(cacheFile, 1024 * 1024 * 250); //250Mb
+
+            /************************OkHttpClient配置**************************/
 
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(10, TimeUnit.SECONDS)
@@ -66,22 +68,30 @@ public class Api {
                     .cache(cache)
                     .build();
 
+            /************************OkHttpClient配置*************************/
+
+            /************************Retrofit配置***************************/
+
             retrofit = new Retrofit.Builder()
                     .client(client)
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
+
+            /************************Retrofit配置***************************/
         }
         return retrofit;
     }
+
     /**
      * 对 Observable<T> 做统一的处理，处理了线程调度、分割返回结果等操作组合了起来
+     *
      * @param responseObservable
      * @param <T>
      * @return
      */
-    protected <T > Observable<T> applySchedulers(Observable<T> responseObservable) {
+    protected <T> Observable<T> applySchedulers(Observable<T> responseObservable) {
         return responseObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<T, Observable<T>>() {
@@ -94,10 +104,11 @@ public class Api {
 
     /**
      * 对网络接口返回的Response进行分割操作 对于json 解析错误以及返回的 响应实体为空的情况
+     *
      * @param response
      * @return
      */
-    public < T > Observable<T> flatResponse(final T response) {
+    public <T> Observable<T> flatResponse(final T response) {
         return Observable.create(new Observable.OnSubscribe<T>() {
             @Override
             public void call(Subscriber<? super T> subscriber) {
