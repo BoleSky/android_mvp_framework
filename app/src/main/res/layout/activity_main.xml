@@ -2,7 +2,8 @@
                                                    android:id="@+id/dl"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   android:background="@android:color/transparent">
+                                                   android:background="@color/color_31c27c"
+                                                   android:fitsSystemWindows="true">
     <!--下层 左边的布局-->
     <include layout="@layout/left_main_view_layout"/>
     <!--上层 右边的主布局-->
