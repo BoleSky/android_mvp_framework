@@ -2,10 +2,9 @@ package com.bolesky.base.base;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,8 +12,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bolesky.base.R;
 import com.bolesky.base.App;
+import com.bolesky.base.R;
 import com.bolesky.base.dagger.component.AppComponent;
 import com.bolesky.base.utils.StatusBarCompat;
 import com.progresslibrary.CustomDialog;
@@ -70,7 +69,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void processLogic(Bundle savedInstanceState);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        overridePendingTransition(R.anim.activity_right_in, R.anim.activity_right_out);
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutId());
@@ -111,7 +109,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.activity_right_in, R.anim.activity_right_out);
     }
 
     @Override

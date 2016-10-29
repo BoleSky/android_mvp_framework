@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onSelected(int index, int totalCount) {
-                        title.setTextColor(getResources().getColor(R.color.lawn_green));
+                        title.setTextColor(getResources().getColor(R.color.themeColor));
                     }
 
                     @Override
