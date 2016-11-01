@@ -54,4 +54,5 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.7'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile project(':tabnavigatorLibrary')
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
