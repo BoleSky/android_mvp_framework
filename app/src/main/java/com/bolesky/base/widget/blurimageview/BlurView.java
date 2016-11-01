@@ -136,7 +136,7 @@ public class BlurView extends RelativeLayout {
     }
 
     public void setBlurImageByUrl(String blurImageUrl) {
-        cancelImageRequestForSafty();
+        cancelImageRequestForSafety();
         imageLoader.loadImage(blurImageUrl, blurLoadingListener);
     }
 
@@ -155,7 +155,7 @@ public class BlurView extends RelativeLayout {
      */
     public void setFullImageByUrl(String blurImageUrl, String originImageUrl) {
         mOriginImageUrl = originImageUrl;
-        cancelImageRequestForSafty();
+        cancelImageRequestForSafety();
         imageLoader.loadImage(blurImageUrl, fullLoadingListener);
     }
 
@@ -176,12 +176,12 @@ public class BlurView extends RelativeLayout {
         mBlurFactor = blurFactor;
     }
 
-    public void cancelImageRequestForSafty() {
+    public void cancelImageRequestForSafety() {
         imageLoader.cancelDisplayTask(imageView);
     }
 
     public void clear() {
-        cancelImageRequestForSafty();
+        cancelImageRequestForSafety();
         imageView.setImageBitmap(null);
     }
 
