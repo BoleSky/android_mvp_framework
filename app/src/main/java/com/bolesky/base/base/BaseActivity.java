@@ -72,11 +72,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutId());
-//        if (statusBarColor > 0) {
-//            StatusBarCompat.compat(this, statusBarColor);
-//        } else if (statusBarColor == 0) {
-//            StatusBarCompat.compat(this);
-//        }
+        if (statusBarColor > 0) {
+            StatusBarCompat.compat(this, statusBarColor);
+        } else if (statusBarColor == 0) {
+            StatusBarCompat.compat(this);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
                 && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             //透明状态栏
