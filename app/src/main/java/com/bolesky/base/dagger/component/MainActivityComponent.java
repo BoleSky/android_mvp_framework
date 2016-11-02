@@ -2,6 +2,7 @@ package com.bolesky.base.dagger.component;
 
 import com.bolesky.base.activity.MainActivity;
 import com.bolesky.base.dagger.scope.PerActivity;
+import com.bolesky.base.widget.blurimageview.BlurView;
 
 import dagger.Component;
 
@@ -15,5 +16,5 @@ import dagger.Component;
 public interface MainActivityComponent {
 
     MainActivity inject(MainActivity activity);
-
+    BlurView inject(BlurView activity);
 }

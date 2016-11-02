@@ -8,6 +8,9 @@ import android.util.Log;
 
 import com.bolesky.base.R;
 import com.bolesky.base.base.BaseFragment;
+import com.bolesky.base.widget.blurimageview.BlurView;
+
+import butterknife.Bind;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +28,9 @@ public class HomeFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    @Bind(R.id.blur_image_view)
+    BlurView mBlurView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,12 +65,15 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
-        Log.e("xiaoyong.cui","HomeFragment");
+        Log.e("xiaoyong.cui", "HomeFragment");
     }
 
     @Override
     protected void configViews(Bundle savedInstanceState) {
 //        setContentView(R.layout.fragment_home);
+        mBlurView.setFullImageByUrl("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg"
+                , "http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
+//        mBlurView.setBlurImageByUrl("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
     }
 
     @Override

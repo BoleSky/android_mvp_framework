@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.bolesky.base.App;
+import com.bolesky.base.dagger.component.DaggerMainActivityComponent;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import javax.inject.Inject;
 
 /**
  * This imageView can show blur image.
@@ -23,13 +24,16 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
  */
 public class BlurView extends RelativeLayout {
 
-    public final static int DEFAULT_BLUR_FACTOR = 8;
-    private Context mContext;
+    @Inject
+    DisplayImageOptions mDisplayImageOptions;
+    @Inject
+    ImageLoader mImageLoader;
+    @Inject
+    Context mContext;
 
+    public final static int DEFAULT_BLUR_FACTOR = 8;
     private int mBlurFactor = DEFAULT_BLUR_FACTOR;
     private String mOriginImageUrl;
-    private ImageLoader imageLoader;
-    private DisplayImageOptions displayImageOptions;
 
     private ImageView imageView;
     private LoadingProgressView mLoadingProgressView;
@@ -46,36 +50,16 @@ public class BlurView extends RelativeLayout {
 
     public BlurView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mContext = context.getApplicationContext();
         init();
     }
 
     private void init() {
-        initImageLoaderConfiguration();
-        imageLoader = ImageLoader.getInstance();
+        DaggerMainActivityComponent.builder()
+                .appComponent(App.getInstance().getAppComponent())
+                .build()
+                .inject(this);
 
         initChildView();
-        initDisplayImageOptions();
-    }
-
-    private void initImageLoaderConfiguration() {
-        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(mContext);
-        config.threadPriority(Thread.NORM_PRIORITY - 2);
-        config.denyCacheImageMultipleSizesInMemory();
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(100 * 1024 * 1024); // 50 MiB
-        config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.writeDebugLogs(); // Remove for release app
-
-        // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config.build());
-    }
-
-    private void initDisplayImageOptions() {
-        displayImageOptions = new DisplayImageOptions.Builder()
-                .cacheOnDisk(true)
-                .considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
     }
 
     private void initChildView() {
@@ -102,12 +86,14 @@ public class BlurView extends RelativeLayout {
         }
     };
 
-    private SimpleImageLoadingListener fullLoadingListener = new SimpleImageLoadingListener() {
+    SimpleImageLoadingListener fullLoadingListener = new SimpleImageLoadingListener() {
+
         @Override
         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
             imageView.setImageBitmap(getBlurBitmap(loadedImage));
-            imageLoader.displayImage(mOriginImageUrl, imageView, displayImageOptions,
+            mImageLoader.displayImage(mOriginImageUrl, imageView, mDisplayImageOptions,
                     null, new ImageLoadingProgressListener() {
+
                         @Override
                         public void onProgressUpdate(String imageUri, View view, int current, int total) {
                             if (!enableProgress) {
@@ -117,7 +103,7 @@ public class BlurView extends RelativeLayout {
                                 mLoadingProgressView.setVisibility(VISIBLE);
                                 mLoadingProgressView.setCurrentProgressRatio((float) current / total);
                             } else {
-                                mLoadingProgressView.setVisibility(GONE);
+                                mLoadingProgressView.setVisibility(VISIBLE);
                             }
                         }
                     });
@@ -125,24 +111,18 @@ public class BlurView extends RelativeLayout {
     };
 
     /**
-     * This method will fetch bitmap from resource and make it blurry, display
+     * This method will fetch bitmap from URL and make it blurry, display
      *
-     * @param blurImageRes the image resource id which is needed to be blurry
+     * @param blurImageUrl the image resource URL which is needed to be blurry
      */
-    public void setBlurImageByRes(int blurImageRes) {
-        buildDrawingCache();
-        Bitmap blurBitmap = FastBlurUtil.doBlurring(getDrawingCache(), mBlurFactor, true);
-        imageView.setImageBitmap(blurBitmap);
-    }
-
     public void setBlurImageByUrl(String blurImageUrl) {
         cancelImageRequestForSafety();
-        imageLoader.loadImage(blurImageUrl, blurLoadingListener);
+        mImageLoader.loadImage(blurImageUrl, blurLoadingListener);
     }
 
     public void setOriginImageByUrl(String originImageUrl) {
-        mOriginImageUrl = originImageUrl;
-        imageLoader.displayImage(originImageUrl, imageView);
+//        mOriginImageUrl = originImageUrl;
+        mImageLoader.displayImage(originImageUrl, imageView);
     }
 
     /**
@@ -156,7 +136,7 @@ public class BlurView extends RelativeLayout {
     public void setFullImageByUrl(String blurImageUrl, String originImageUrl) {
         mOriginImageUrl = originImageUrl;
         cancelImageRequestForSafety();
-        imageLoader.loadImage(blurImageUrl, fullLoadingListener);
+        mImageLoader.loadImage(blurImageUrl, fullLoadingListener);
     }
 
     private Bitmap getBlurBitmap(Bitmap loadedBitmap) {
@@ -177,7 +157,7 @@ public class BlurView extends RelativeLayout {
     }
 
     public void cancelImageRequestForSafety() {
-        imageLoader.cancelDisplayTask(imageView);
+        mImageLoader.cancelDisplayTask(imageView);
     }
 
     public void clear() {

@@ -18,8 +18,11 @@
 
     <style name="Theme.ToolBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="colorPrimary">@color/themeColor</item>
+        <item name="colorPrimaryDark">@color/themeColor</item>
+        <item name="colorAccent">@color/themeColor</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="android:statusBarColor">@color/themeColor</item>
+        <item name="android:navigationBarColor">@color/themeColor</item>
     </style>
 </resources>

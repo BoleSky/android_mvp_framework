@@ -1,6 +1,12 @@
 package com.bolesky.base.dagger.module;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,5 +28,23 @@ public class AppModule {
     @Provides
     public Context provideContext() {
         return context;
+    }
+
+    @Provides
+    @Singleton
+    public DisplayImageOptions provideDisplayImageOptions() {
+        DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+        return displayImageOptions;
+    }
+
+    @Provides
+    @Singleton
+    public ImageLoader provideImageLoader() {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        return imageLoader;
     }
 }
