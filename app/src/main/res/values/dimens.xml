@@ -2,6 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="layout_height_1dp">1dp</dimen>
     <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="padding_5dp">5dp</dimen>
 
     <dimen name="layout_width_25dp">25dp</dimen>
     <dimen name="layout_height_25dp">25dp</dimen>
