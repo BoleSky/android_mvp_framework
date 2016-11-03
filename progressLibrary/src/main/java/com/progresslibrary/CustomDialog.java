@@ -6,9 +6,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by qzsang on 2016/8/16.
- */
 
 public class CustomDialog extends Dialog {
 
@@ -20,7 +17,7 @@ public class CustomDialog extends Dialog {
         super(context, themeResId);
     }
 
-    protected CustomDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    public CustomDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 

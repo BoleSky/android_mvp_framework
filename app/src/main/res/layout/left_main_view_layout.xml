@@ -1,96 +1,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/sidebar_bg"
-    android:paddingTop="70dp">
-
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/left_layout_background"
+                android:paddingTop="50dp">
+    <!--头像，昵称信息-->
     <LinearLayout
-        android:id="@+id/ll1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="30dp">
-        <!--头像，昵称信息-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.bolesky.base.widget.circleimageview.CircleImageView
-                android:id="@+id/iv_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/small"
-                app:border_color="@android:color/white"
-                app:border_width="2dp" />
-
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:text="名字:jiangqqlmj"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    android:text="QQ:781931404"
-                    android:textColor="@android:color/black"
-                    android:textSize="13sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="用心做产品!"
-                android:textColor="#676767"
-                android:textSize="13sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!--底部功能条-->
-    <include
-        android:id="@+id/bottom_view"
-        layout="@layout/left_view_bottom_layout" />
-    <!--中间列表-->
-    <ListView
-        android:id="@+id/lv"
+        android:id="@+id/ll_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_view"
-        android:layout_below="@id/ll1"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="70dp"
-        android:cacheColorHint="#00000000"
-        android:divider="@null"
-        android:scrollbars="none"
-        android:textColor="#ffffff" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/ll_personalInformation"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <!--头像-->
+            <com.bolesky.base.widget.circleimageview.CircleImageView
+                android:id="@+id/iv_bottom"
+                android:layout_width="@dimen/image_width_60dp"
+                android:layout_height="@dimen/image_height_60dp"
+                android:src="@drawable/small"
+                app:border_color="@color/white"
+                app:border_width="2dp"/>
+            <!--昵称-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:ellipsize="end"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:text="喵星人喵星人"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontSize_35sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ll_personalInformation">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:ellipsize="end"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:text="用心做产品!"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontSize_15sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--分隔线-->
+    <LinearLayout
+        style="@style/dividerLine"
+        android:layout_below="@id/ll_information"/>
+
+    <!--底部功能条-->
+    <!--中间列表-->
+
+    <include
+        layout="@layout/left_view_bottom_layout"/>
 </RelativeLayout>

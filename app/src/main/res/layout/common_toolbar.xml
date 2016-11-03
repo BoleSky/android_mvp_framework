@@ -10,5 +10,4 @@
         android:background="@color/themeColor"
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"/>
-    <!--android:theme="@style/Theme.ToolBar.Menu"-->
 </merge>
