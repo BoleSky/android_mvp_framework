@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/themeColor"
-        android:fitsSystemWindows="true"
-        >
+        android:fitsSystemWindows="true">
         <!--下层 左边的布局-->
         <include layout="@layout/left_main_view_layout"/>
         <!--上层 右边的主布局-->
@@ -28,11 +27,6 @@
 
                 <include layout="@layout/common_toolbar"/>
                 <!--&lt;!&ndash;中间内容后面放入Fragment&ndash;&gt;-->
-                <!--<FrameLayout-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="fill_parent">-->
-
-                <!--</FrameLayout>-->
                 <include layout="@layout/layout_tabnavigator"/>
             </LinearLayout>
         </com.bolesky.base.widget.sidesliplayout.SideSlipLayout>
