@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/themeColor</item>
         <item name="colorPrimaryDark">@color/themeColor</item>
@@ -9,20 +9,10 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
-    <style name="TranslucentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.ToolBar" parent="AppTheme">
+        <!-- Customize your theme here. -->
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
-
-    <style name="Theme.ToolBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/themeColor</item>
-        <item name="colorPrimaryDark">@color/themeColor</item>
-        <item name="colorAccent">@color/themeColor</item>
-        <item name="android:textColorPrimary">@color/white</item>
         <item name="android:statusBarColor">@color/themeColor</item>
-        <item name="android:navigationBarColor">@color/themeColor</item>
     </style>
 </resources>
