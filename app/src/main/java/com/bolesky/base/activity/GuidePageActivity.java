@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bolesky.base.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GuidePageActivity extends AppCompatActivity {
     DownTimer mDownTimer;
@@ -31,6 +33,13 @@ public class GuidePageActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.ll_goto)
+    public void go2Activity(LinearLayout ll) {
+        mDownTimer.cancel();
+        startActivity(new Intent(GuidePageActivity.this, MainActivity.class));
+        this.finish();
     }
 
     /**
