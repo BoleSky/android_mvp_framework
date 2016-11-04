@@ -1,10 +1,9 @@
 package com.bolesky.base.activity;
 
 import android.content.Intent;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.bolesky.base.R;
@@ -14,7 +13,7 @@ import butterknife.ButterKnife;
 
 public class GuidePageActivity extends AppCompatActivity {
     DownTimer mDownTimer;
-    private Handler handler = new Handler();
+
     @Bind(R.id.tv_time)
     TextView mTextView;
 
@@ -23,14 +22,9 @@ public class GuidePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide_page);
         ButterKnife.bind(this);
-        mDownTimer = new DownTimer(4000, 1000);
+        mTextView.setText(getResources().getString(R.string.jump_ad));
+        mDownTimer = new DownTimer(3000, 1000);
         mDownTimer.start();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(GuidePageActivity.this, MainActivity.class));
-            }
-        }, 3500);
     }
 
     @Override
@@ -59,12 +53,13 @@ public class GuidePageActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            mTextView.setText(getResources().getString(R.string.jump_time, 0));
+            startActivity(new Intent(GuidePageActivity.this, MainActivity.class));
+            finish();
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            mTextView.setText(getResources().getString(R.string.jump_time, millisUntilFinished / 1000));
+
         }
     }
 }
