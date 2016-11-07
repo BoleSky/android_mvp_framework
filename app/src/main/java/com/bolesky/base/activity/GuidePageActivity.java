@@ -25,7 +25,7 @@ public class GuidePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_guide_page);
         ButterKnife.bind(this);
         mTextView.setText(getResources().getString(R.string.jump_ad));
-        mDownTimer = new DownTimer(3000, 1000);
+        mDownTimer = new DownTimer(2000, 1000);
         mDownTimer.start();
     }
 

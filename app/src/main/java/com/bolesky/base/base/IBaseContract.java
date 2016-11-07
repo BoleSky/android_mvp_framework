@@ -6,7 +6,7 @@ package com.bolesky.base.base;
  * E-Mail:hellocui@aliyun.com
  */
 
-public interface BaseContract {
+public interface IBaseContract {
     interface BaseView {
 
         void showError();

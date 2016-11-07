@@ -8,7 +8,7 @@ import com.bolesky.base.bean.HttpExceptionBean;
  * E-Mail:hellocui@aliyun.com
  */
 
-public abstract class CallBackImp<T> implements CallBack<T> {
+public abstract class ICallBackImp<T> implements ICallBack<T> {
     @Override
     public void onCompleted() {
     }

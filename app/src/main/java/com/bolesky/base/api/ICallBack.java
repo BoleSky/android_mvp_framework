@@ -8,7 +8,7 @@ import com.bolesky.base.bean.HttpExceptionBean;
  * E-Mail:hellocui@aliyun.com
  */
 
-public interface CallBack<T> {
+public interface ICallBack<T> {
     void onCompleted();
 
     void onError(HttpExceptionBean httpExceptionBeanBean);

@@ -32,7 +32,9 @@
             android:paddingLeft="@dimen/padding_10dp"
             android:paddingRight="@dimen/padding_10dp"
             android:paddingTop="@dimen/padding_5dp"
-            android:textColor="@color/colorSecondText"
-            tools:text="跳过广告"/>
+            android:textColor="@color/white"
+            tools:text="跳过广告"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"/>
     </LinearLayout>
 </RelativeLayout>

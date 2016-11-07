@@ -13,7 +13,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-import com.bolesky.base.api.CallBackImp;
+import com.bolesky.base.api.ICallBackImp;
 
 /**
  * Created by xiaoyong.cui
@@ -26,7 +26,7 @@ import com.bolesky.base.api.CallBackImp;
  *
  * @param <T>
  */
-public class RxPresenter<T extends BaseContract.BaseView> implements BaseContract.BasePresenter<T> {
+public class RxPresenter<T extends IBaseContract.BaseView> implements IBaseContract.BasePresenter<T> {
     T mView;
     CompositeSubscription compositeSubscription;
 
@@ -48,7 +48,7 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
      * @param <E>
      * @return
      */
-    protected <E> Subscriber getSubscriber(final CallBackImp callBack) {
+    protected <E> Subscriber getSubscriber(final ICallBackImp callBack) {
         return new Subscriber<E>() {
 
             @Override
