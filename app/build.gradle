@@ -1,6 +1,26 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
+
+/**
+ * 构建时间
+ * @return
+ */
+def buildTime(String time) {
+    def date =new Date()
+    def formattedDate = date.format(time)
+    return formattedDate
+}
+/**
+ * 读取签名
+ * @return
+ */
+def getSignProperty() {
+    def Properties buildProperties =new Properties()
+    buildProperties.load(new FileInputStream(file('../config/sign.properties')))
+    return buildProperties
+}
+
 buildscript {
     repositories {
         jcenter()
@@ -11,21 +31,100 @@ buildscript {
 }
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
-    buildToolsVersion BUILD_TOOLS_VERSION 
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.bolesky.base"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
+        // dex突破65535的限制
+        multiDexEnabled true
+        // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+        //默认的渠道名
+        manifestPlaceholders = [CHANNEL: "channel_name"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+    //执行lint检查，有任何的错误或者警告提示，都会终止构建，可以将其关掉。
+    lintOptions {
+        abortOnError false
+    }
+    //签名
+    signingConfigs {
+        debug {
+            // No debug config
+        }
         release {
+            def Properties buildSignProps = getSignProperty()
+            storeFile file(buildSignProps['STORE_FILE'])
+            keyAlias buildSignProps['KEY_ALIAS']
+            keyPassword buildSignProps['KEY_PASSWORD']
+            storePassword buildSignProps['STORE_PASSWORD']
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            versionNameSuffix "-release"
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+//            shrinkResources true
+//            //签名
+            signingConfig signingConfigs.release
+            //混淆
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        productFlavors {
+            baidu {
+                manifestPlaceholders = [CHANNEL_ID: "baidu"]
+            }
+            googleplay {
+                manifestPlaceholders = [CHANNEL_ID: "google"]
+            }
+            wandoujia {
+                manifestPlaceholders = [CHANNEL_ID: "wandoujia"]
+            }
+            xiaomi {
+                manifestPlaceholders = [CHANNEL_ID: "xiaomi"]
+            }
+            yingyongbao {
+                manifestPlaceholders = [ CHANNEL_ID:"yingyongbao"]
+            }
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                // 重命名产出的apk文件
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    File outputDirectory = new File(outputFile.parent);
+                    def fileName
+                    if (variant.buildType.name == "release") {// 输出apk名称为App_v1.0_2015-01-15_release_wandoujia.apk
+                        fileName = "app_v${defaultConfig.versionName}_${buildTime("yyyy-MMdd")}_release_${variant.productFlavors[0].name}.apk"
+                    } else {
+                        fileName = "app_v${defaultConfig.versionName}_${buildTime("yyyy-MMdd")}_debug_${variant.productFlavors[0].name}.apk"
+                    }
+                    output.outputFile = new File(outputDirectory, fileName)
+                }
+            }
+        }
     }
+
     // 注释冲突
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
