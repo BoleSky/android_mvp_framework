@@ -47,7 +47,11 @@ android {
     }
     //执行lint检查，有任何的错误或者警告提示，都会终止构建，可以将其关掉。
     lintOptions {
+        checkReleaseBuilds false
         abortOnError false
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
     //签名
     signingConfigs {
