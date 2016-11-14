@@ -42,7 +42,7 @@ android {
         multiDexEnabled true
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
         //默认的渠道名
-        manifestPlaceholders = [CHANNEL: "baidu"]
+        manifestPlaceholders = [CHANNEL: "Xiaomi"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     //执行lint检查，有任何的错误或者警告提示，都会终止构建，可以将其关掉。
@@ -66,7 +66,6 @@ android {
             storePassword buildSignProps['STORE_PASSWORD']
         }
     }
-
     buildTypes {
 
         debug {
@@ -141,17 +140,19 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    //Dagger2
-    compile project(':progressLibrary')
-    //retrofit2+rxjava
-    apt 'com.google.dagger:dagger-compiler:2.7'
-    compile project(':refreshLibrary')
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:support-v4:25.0.0'
+    testCompile 'junit:junit:4.12'
+    //Dagger2
+    apt 'com.google.dagger:dagger-compiler:2.7'
     compile 'com.google.dagger:dagger:2.7'
     compile 'com.jakewharton:butterknife:7.0.1'
+    //第三方库
+    compile project(':progressLibrary')
+    compile project(':refreshLibrary')
+    compile project(':tabnavigatorLibrary')
+    //retrofit2+java
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
@@ -159,10 +160,10 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'io.reactivex:rxandroid:1.2.1'
+    //动画库
     compile 'com.nineoldandroids:library:2.4.0'
-
-
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    compile project(':tabnavigatorLibrary')
+    //图片加载库
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
 }
